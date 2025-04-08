@@ -1,0 +1,282 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    box-sizing: border-box;
+}
+.fix{
+    margin-right: 100px;
+}
+.login_centrar {
+    margin-top: 35px;
+}
+body {
+    align-items: flex-start;  /* Cambié 'center' por 'flex-start' para que no se quede centrado verticalmente */
+    height: 100vh;
+    background-color: rgba(211, 211, 211, 0.164);
+}
+
+.contenedor_padre2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 60%;
+    max-width: 800px;
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 900px;  /* Asegura que haya suficiente espacio vertical */
+    margin-top: 50px;  /* Espacio gris arriba */
+    margin-bottom: 50px; /* Espacio gris abajo */
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    transition: 1s;
+}
+
+a:hover {
+    color: #F58634;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #50B1F0;
+}
+
+p {
+    color: black;
+}
+
+#titulo_formulario_moni {
+    margin-top: 20px;
+    padding: 15px;  /* Aumenta el padding para más espacio */
+    background-color: #50B1F0;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;  /* Aumenta el tamaño de la fuente */
+    display: inline-block; /* Hace que el contenedor se ajuste al contenido */
+    text-align: center;
+    margin-bottom: 20px;  /* Aumenta el espacio debajo */
+    width: fit-content;  /* Ajusta el ancho al tamaño del contenido */
+    box-sizing: border-box;  /* Asegura que el padding se incluya en el cálculo del ancho */
+    margin-left: auto;   /* Centra el título horizontalmente */
+    margin-right: auto;  /* Centra el título horizontalmente */
+}
+
+.formulario__label {
+    text-align: left;
+    color: black;
+}
+
+.formulario__input {
+    padding: 10px;
+    padding-left: 40px; /* Asegura que haya espacio suficiente a la izquierda para el ícono */
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 100%;
+    transition: all 1s;
+    margin-top: 10px;
+}
+.formulario__grupo{
+    margin-top: 20px;
+}
+
+.formulario__grupo-input {
+    position: relative;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+
+
+#grupo__informacion_moni .bx {
+    position: absolute;
+    top: 43%;  /* Alinea el ícono verticalmente en el centro */
+    font-size: 20px;
+    left: 15px;
+    transform: translateY(-50%);  /* Centra verticalmente */
+}
+
+.formulario__input-error {
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+}
+
+.formulario__input-error-activo {
+    display: block;
+}
+
+.formulario__mensaje {
+    background-color: rgba(255, 0, 0, 0.977);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 10px;
+    display: none;
+}
+
+.formulario__mensaje-exito {
+    background-color: green;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 10px;
+    display: none;
+}
+
+.formulario__mensaje-activo {
+    display: block;
+}
+
+.formulario__button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #50B1F0;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    width: auto;
+    display: inline-block;
+}
+
+.formulario__button:hover {
+    background-color: black;
+    opacity: 0.8;
+}
+
+.button_submit{
+    background-color: transparent;
+    color: white;
+    border: none;
+}
+
+
+#grupo__distrito_moni select {
+    padding: 10px;
+    padding-left: 40px; /* Asegura que haya espacio suficiente a la izquierda para el ícono */
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 100%;
+    transition: all 1s;
+    margin-top: 10px;
+    width: 100%;
+}
+
+
+/*Validaciones*/
+
+.formulario__validacion-estado {
+    color: green;
+}
+
+.formulario__validacion-noestado {
+    color: red;
+}
+
+.formulario__grupo-incorrecto .formulario__validacion-estado {
+    color: red;
+}
+
+.formulario__grupo-incorrecto .formulario__label {
+    color: red;
+}
+
+.formulario__grupo-incorrecto .formulario__input {
+    border: 1px solid red;
+}
+
+
+/* Estilo del modal (inicialmente oculto) */
+.mensaje {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Contenido del modal */
+.contenidoMensaje {
+    background: white;
+    height: 80vh;
+    width: 50%;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.correoEnviado{
+    font-size: 1.5rem;
+}
+/* Mostrar el modal */
+.mensaje.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+
+
+@media (max-width: 720px) {
+    .contenedor_padre {
+        grid-template-columns: 1fr;
+    }
+    .button_registrarse {
+        width: 100%;
+    }
+    .formulario__buttonGoogle {
+        padding: 10px;
+        margin-top: 5px;
+        background-color: #056894;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 15px;
+        display: flex;
+        justify-content: center;
+    }
+    .formulario__button {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #50B1F0;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 15px;
+        display: flex;
+        justify-content: center;
+    }
+
+    textarea {
+        width: 100%;
+        height: 100px;
+        padding: 30px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px;
+        resize: none;
+        line-height: normal; 
+    }
+}

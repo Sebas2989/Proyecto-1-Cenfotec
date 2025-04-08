@@ -1,0 +1,283 @@
+.carouselcontainer{
+    width: 100%;
+}
+.carousel{
+    transition: .75s;
+} 
+.carousel a{
+    width: 100%;
+    height: 100%;
+    padding-top: 200px;
+    color: rgba(252, 252, 252, 0.94);
+}
+.carousel:hover .hide{
+    display: relative;
+    justify-content: left;
+    align-items: left;
+    text-align: left;
+    height: 15rem;
+    width: 100%;
+    transform: scale(1.010); /* (10% de zoom, !!Recordatorio!! Si el zoom es mas grande que el viewport puede salirse Atte: Taylor) */
+    color: rgba(254, 254, 254, 0.678);
+    opacity: 1;
+    background-size: cover;
+    z-index: 0;
+}
+.zoom1-carousel:hover .hide{
+    background: linear-gradient(rgba(5, 7, 12, 0.634),rgba(5, 7, 12, 0.659)), url("/img/Section4-Fachadas.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+.zoom2-carousel:hover .hide{
+    background: linear-gradient(rgba(5, 7, 12, 0.634),rgba(5, 7, 12, 0.659)), url("/img/Section4-Bannos.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+.zoom3-carousel:hover .hide{
+    background: linear-gradient(rgba(5, 7, 12, 0.634),rgba(5, 7, 12, 0.659)), url("/img/Section4-Interiores.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+.zoom4-carousel:hover .hide{
+    background: linear-gradient(rgba(5, 7, 12, 0.634),rgba(5, 7, 12, 0.659)), url("/img/Section4-Estructuras.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+.zoom5-carousel:hover .hide{
+    background: linear-gradient(rgba(5, 7, 12, 0.634),rgba(5, 7, 12, 0.659)), url("/img/Section4-ReparecionesyOtros.jpg") no-repeat center fixed;
+    background-size: cover;
+}
+.zoom6-carousel:hover .hide{
+    background: linear-gradient(rgba(5, 7, 12, 0.634),rgba(5, 7, 12, 0.659)), url("/img/Section4-Techos.jpg") no-repeat center fixed;
+    background-size: cover;
+}
+.carousel:hover .inHide{
+    justify-content: left;
+    align-items: left;
+    text-align: left;
+    width: 100%;
+    height: 100%;
+    margin-top: 0px;
+    padding-top: 0px;
+    padding-bottom: 190px;
+    color: rgba(255, 255, 255, 0.678);
+    font-size: .9rem;
+}
+.carousel:hover .inHide2{
+    width: 100%;
+    height: 100%;
+    margin-top: -150px;
+    padding-top: 0px;
+    padding-bottom: 200px;
+    color: rgba(255, 255, 255, 0.678);
+    font-size: 1.15rem;
+}
+.carousel{
+    display: block;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0px;
+    height: 15rem;
+    width: 100%;
+    border-radius: 15px;
+    font-size: 1.6rem;
+    padding: 0px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: .5s;
+    overflow: hidden;
+    margin-left: 0px;
+}
+.zoom1-carousel{
+    background: linear-gradient(rgba(5, 7, 12, 0.378),rgba(5, 7, 12, 0.194)), url("/img/Section4-Fachadas.jpg") no-repeat center center;
+    background-size: cover;
+}
+.zoom2-carousel{
+    background: linear-gradient(rgba(5, 7, 12, 0.378),rgba(5, 7, 12, 0.194)), url("/img/Section4-Bannos.jpg") no-repeat center center;
+    background-size: cover;
+}
+.zoom3-carousel{
+    background: linear-gradient(rgba(5, 7, 12, 0.378),rgba(5, 7, 12, 0.194)), url("/img/Section4-Interiores.jpg") no-repeat center right;
+    background-size: cover;
+}
+.zoom4-carousel{
+    background: linear-gradient(rgba(5, 7, 12, 0.378),rgba(5, 7, 12, 0.194)), url("/img/Section4-Estructuras.jpg") no-repeat center right;
+    background-size: cover;
+}
+.zoom5-carousel{
+    background: linear-gradient(rgba(5, 7, 12, 0.378),rgba(5, 7, 12, 0.194)), url("/img/Section4-ReparecionesyOtros.jpg") no-repeat center right;
+    background-size: cover;
+}
+.zoom6-carousel{
+    background-color: #edf2f4;
+}
+.hide{
+    background-color: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 1;
+    opacity: 0;
+    padding: 2rem 1.3rem 2rem 2rem;
+}
+.animacionBordes{
+    border-radius: 15px;
+    position: relative;
+    padding: 0px;
+    transition: .5s;
+    border: none;
+    outline: none;
+    overflow: hidden;
+}
+.animacionBordes:hover{
+    background-size: cover;
+    z-index: 0;
+}
+.animacionBordes span:nth-child(5){
+    width: 100%;
+    height: 2px;
+    top: 0;
+    left: -100%;
+}
+.animacionBordes span:nth-child(6){
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    right: -100%;
+}
+.animacionBordes span:nth-child(7){
+    width: 2px;
+    height: 100%;
+    bottom: -100%;
+    left: 0;
+}
+.animacionBordes span:nth-child(4){
+    width: 2px;
+    height: 100%;
+    top: -100%;
+    right: 0;
+}
+.animacionBordes:hover span:nth-child(5){
+    left: 0;
+}
+.animacionBordes:hover span:nth-child(6){
+    right: 0;
+}
+.animacionBordes:hover span:nth-child(7){
+    bottom: 0;
+}
+.animacionBordes:hover span:nth-child(4){
+    top: 0;
+}
+.hidden {
+    display: none;
+}
+.lista {
+    position: absolute;
+    right: 0;
+    top: 100px;
+}
+#formularioAvisos.show{
+    z-index: 100 !important;
+    display: block;
+    position: fixed;
+    background: #ffffff;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 100vh;
+    border-top-left-radius: 35px;
+    border-bottom-left-radius: 29px;
+    border-left: 2.75px solid #c4c4c4;
+    box-shadow: 8px 0px 20px 15px #c9c1c1;
+    transition: .75s ease-in-out;
+    transform: translateX(0%);
+}
+.buttonCerrar{
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    cursor: pointer;
+    display: block;
+    border-radius: 15px;
+    width: 10%;
+    font-size: 1.5em;
+    padding: .3em 0 0 .3em;
+}
+.icono i{
+    background-color: #edf2f4;
+    display: block;
+    border-radius: 15px;
+    width: 100%;
+    padding: 6.75rem 0px;
+    top: 50;
+    cursor: pointer;
+}
+#formularioAvisos{
+    display: block;
+    position: fixed;
+    transform: translateX(100%);
+    transition: .75s ease-in-out;
+}
+.formularioCrear-aviso{
+    height: 15rem;
+    width: 100%;
+    display: none;
+}
+#formularioAvisos form{
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#formularioAvisos input, #formularioAvisos textarea{
+    width: 80%;
+    max-width: 80%;
+    padding: 8px;
+}
+.labelsFormulario{
+    width: 100%;
+    margin: 10px;
+    padding-left: 10%;
+    text-align: left;
+    color: black;
+}
+#formularioAvisos input{
+    cursor: pointer;
+}
+.botonesFormulario-avisos{
+    display: flex;
+    width: 100%;
+    padding: 20px 10%;
+    justify-content: space-between;
+}
+.botonesFormulario-avisos input{
+    width: 45%;
+    margin: 10px 0px;
+}
+.botonesFormulario-avisos input:hover{
+    background-color: #ff8834;
+    border: 1px solid #ff6a00;
+    transition: .75s;
+}
+.verde{
+    background-color: yellowgreen;
+    border: .5px solid rgb(153, 230, 0);
+}
+.rojo{
+    background-color: tomato;
+    border: 1px solid #ff5100;
+}
+.fa-plus{
+    font-size: 1.5rem;
+    color: black;
+}
+.fa-brands{
+    font-size: 20px;
+    padding-top: 18px;
+    align-items: center;
+}
+@media screen and (min-width: 320px) and (max-width: 494px){
+
+}

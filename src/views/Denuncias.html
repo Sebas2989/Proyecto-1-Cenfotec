@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/header_footer.css"> 
+    <!-- <link rel="stylesheet" href="css/denuncias_jean.css">  -->
+    <!-- <link rel="stylesheet" href="css/Inicio_Sesion_moni.css"> -->
+    <!-- <link rel="stylesheet" href="css/Botones.css"> -->
+    <title>Denuncias</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="menu">
+                <a href="/" class="a-order">
+                    <img src="/img/Logo.png" alt="logo" srcset="" class="logo">
+                </a>
+                <button class="hamburger"><i class="fa-solid fa-bars"></i></button>
+                <ul class="ulMenu hidden2">
+                    <li class="serviciosMenu fix"><a class="centr" href="/servicios">Servicios</a></li>
+                    <li class="serviciosMenu fix"><a href="/denuncias">Denuncias</a></li>
+                    <li class="serviciosMenu fix"><a href="#footer">Contactenos</a></li>
+                </ul>
+                <div class="iconosHeader contenedorSesion">
+                    <button class="buttonDesplegar desplegarSesion">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <i class="fa-solid fa-angle-up"></i>
+                    </button>
+                    <div class="lista hidden contenedor_padre">
+                        <div id="sesiones" class="sesiones">
+                            <div class="contenedor-izquierdo">
+                                <p id="titulo_formulario">¿Ya tienes cuenta?<br>Escribe tus datos aquí</p>
+                                <form action=# id="formulario">
+                                    <div class="formulario__grupo" id="grupo__email">
+                                        <label class="formulario__label" for="email">Correo Electrónico</label>
+                                        <div class="formulario__grupo-input">
+                                            <i class='bx bxs-envelope'></i>
+                                            <input type="email" class="formulario__input" name="email" id="email" placeholder="Correo electrónico">
+                                        </div>
+                                        <p class="formulario__input-error">El correo debe de seguir la siguiente estructura: dato1@dato2.dato3</p>
+                                    </div>
+                                    <div class="formulario__grupo" id="grupo__password">
+                                        <label class="formulario__label" for="password">Contraseña</label>
+                                        <div class="formulario__grupo-input">
+                                            <i class='bx bxs-lock-alt'></i>
+                                            <input type="password" class="formulario__input" name="password" id="password" placeholder="Contraseña">
+                                        </div>
+                                        <p class="formulario__input-error">La contraseña debe tener mínimo 4 carácteres y máximo 12 carácteres</p>
+                                        <a href="/recuperacion_contra">¿Olvidaste la contraseña?</a>
+                                    </div>
+                                    <div class="formulario__grupo formulario__grupo-btn-enviar">
+                                        <div class="formulario__button">
+                                            <i class='bx bxs-lock-alt'></i>
+                                            <a class="fix2" href="/perfil"><input  type="" value="Ingresar a cuenta" class="formulario__btn button_submit"></a> 
+                                        </div>
+                                    </div>
+                                    <p>o</p>
+                                </form>
+                                <div class="formulario__buttonGoogle">
+                                    <i class='bx bxl-google'></i>
+                                    <button type="button" class="formulario__btn button_google" id="boton-submit">Continuar con Google</button>
+                                </div>
+                        
+                                <div class="formulario__mensaje" id="formulario__mensaje">
+                                    <p><i class='bx bxs-x-circle' ></i>ERROR: Debes completar todos los campos</p>
+                                </div>
+                            </div>
+                            <div class="contenedor-derecho">
+                                <p>¿Aún no tienes cuenta?</p>
+                                <div class="formulario__grupo formulario__grupo-btn-registrarse">
+                                    <button type="button" class="formulario__btn button_registrarse" id="boton-submit"><a href="/registro">Registrarse</a></button>
+                                </div>
+                            </div>                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Sección Denuncias -->
+    <div class="denuncias fix_jean">
+        <h1>Denuncias</h1>
+
+        <!-- Botón para mostrar el formulario -->
+        <button class="boton_jean" onclick="mostrarFormulario()">Nueva Denuncia</button>
+
+        <!-- Formulario Nueva Denuncia -->
+        <div class="nuevaDenunciaForm_jean hide_jean" id="nuevaDenunciaForm_jean">
+            <form class="forma_jean" onsubmit="event.preventDefault(); validarFormulario();">
+                <label for="denunciaNombre_jean">Asunto:</label>
+                <input type="text" id="denunciaNombre_jean" name="denunciaNombre_jean" required><br>
+
+                <label for="fechaDenuncia_jean">Fecha de la denuncia:</label>
+                <input type="date" id="fechaDenuncia_jean" name="fechaDenuncia_jean" required><br>
+
+                <label for="comentarios_jean">Comentarios:</label>
+                <textarea id="comentarios_jean" name="comentarios_jean" rows="4" required></textarea><br>
+
+                <label for="fotos_jean">Adjuntar fotos:</label>
+                <input type="file" name="fotos_jean"><br>
+
+                <button type="button" class="btnCancelar_jean" onclick="cerrarFormulario()">Cancelar</button>
+                <button type="button" class="btnPublicar_jean" onclick="validarFormulario()">Publicar Denuncia</button>
+            </form>
+        </div>
+
+        <!-- Tabla de Denuncias -->
+        <table class="tableDenuncias_jean show_jean">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre Denuncia</th>
+                    <th>Fecha Denuncia</th>
+                    <th>Fecha Suceso</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Denuncia 1</td>
+                    <td>2025-03-22</td>
+                    <td>2025-03-21</td>
+                    <td>Activa</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Denuncia 2</td>
+                    <td>2025-03-21</td>
+                    <td>2025-03-20</td>
+                    <td>Cerrada</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="padreFooter" id="footer">
+            <div class="hijosFooter1"><img src="/img/Logo_footer.png" alt="logo" srcset="" class="logoFooter"></div>
+            <div class="hijosFooter2">
+                <ul class="ulMenu menuFooter">
+                    <li class="serviciosMenu"><a href="/servicios">Servicios</a></li>
+                    <li class="serviciosMenu"><a href="/denuncias">Denuncias</a></li>
+                    <li class="serviciosMenu"><a href="#">Contactenos</a></li>
+                </ul>
+            </div>
+            <div class="hijosFooter3">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-x-twitter"></i>
+            </div>
+        </div>
+    </footer>
+    <script src="js/denuncia.js" defer></script> 
+</body>
+</html>

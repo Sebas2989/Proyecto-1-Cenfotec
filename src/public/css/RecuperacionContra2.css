@@ -1,0 +1,104 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    
+}
+
+
+
+/*----------------------------------------------------------------------------BODY-----------------------------------------------------*/
+
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(211, 211, 211, 0.164);
+}
+
+.contenedor_padre {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 40%;
+    max-width: 600px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #50B1F0;
+}
+
+
+.formulario_correo {
+    display: flex;
+    flex-direction: column;
+}
+
+.formulario_correo label {
+    margin-bottom: 5px;
+    text-align: left;
+    color: black;
+}
+
+.formulario_correo input {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.formulario_correo /*.grupoDoscolum*/ button {
+    padding: 10px;
+    background-color: #50B1F0;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.formulario_correo /*.grupoDoscolum*/ button:hover {
+    background-color: rgb(0, 153, 255);
+    opacity: 0.5;
+}
+
+/* Estilo del modal (inicialmente oculto) */
+.mensaje {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Contenido del modal */
+.contenidoMensaje {
+    background: white;
+    height: 80vh;
+    width: 50%;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.correoEnviado{
+    font-size: 1.5rem;
+}
+/* Mostrar el modal */
+.mensaje.show {
+    opacity: 1;
+    visibility: visible;
+}

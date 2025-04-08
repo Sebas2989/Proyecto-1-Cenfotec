@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="css/FormCorreo.css">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form" action="" class="formulario">
+        <h1 class="grupoDoscolum">Formulario de registro</h1>
+        <div class="divInputs">
+            <label for="cedulas">Ingrese su numero de identificacion:</label>
+            <select id="cedulas" class="inputs">
+                <option value="Seleccione su tipo de cedula" selected disabled>Tipo de Identifiacion</option>
+                <option value="123456789012">DIMEX</option> 123456789012
+                <option value="1 123 654321">Cedula Juridica</option>
+                <option value="1 1234 4321">Cedula de Identidad</option>123456789
+            </select>
+        </div>
+        <div class="divInputs">
+            <label for="">Digite su cedula:</label>
+            <input class="inputs" type="text" disabled id="inputField" placeholder="Tipo de cedula">
+        </div>
+        <div class="divInputs">
+            <label for="">Nombre:</label>
+            <input class="inputs" type="text" placeholder="Escriba su nombre">
+        </div>
+        <div class="divInputs">
+            <label for="">Apellidos:</label>
+            <input class="inputs" type="text" placeholder="Escriba sus apellidos">
+        </div>
+        <div class="grupoDoscolum divInputs">
+            <label for="">Correo electronico:</label>
+            <input class="inputs" type="email" placeholder="ejemplo@correo.com">
+        </div>
+        <div class="divInputs">
+            <label for="">Contraseña:</label>
+            <input class="inputs" type="password" placeholder="***********">
+        </div>
+        <div class="divInputs">
+            <label for="">Confirmar contraseña:</label>
+            <input class="inputs" type="text" placeholder="">
+        </div>
+        <div class="enviar-reset grupoDoscolum">
+            <button id="bajarMensaje">Enviar</button>
+            <button class="inputs" type="reset">Cancelar</button>
+        </div>
+    </form>
+    
+    <div id="mensaje" class="mensaje">
+        <div class="contenidoMensaje">
+            <p class="correoEnviado">Enlace de verificacion enviado correctamente</p>
+            <video id="video" onended="this.pause();" width="80%">
+                <source src="/img/checked.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+    <script src="js/Form_Registro.js"></script>
+</body>
+</html>

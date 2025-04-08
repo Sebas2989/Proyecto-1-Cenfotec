@@ -1,0 +1,155 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.fix {
+    margin-right: 100px;
+    margin-bottom: 35px;
+
+}
+
+.seccionCentral{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.contenedorBuscadorUsuarios{
+    margin: 50px auto;
+    text-align: center;
+    padding: 30px;
+    width: 50%;
+    height: 60vh;
+    max-width: 800px;
+    background-color: #e5e5e5;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 65%);
+    display:inline-block;
+    justify-content: center;
+    padding-top: 40px;
+}
+
+.buscador{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    margin-left: 110px;
+}
+
+.formulario__grupo-btn-buscar {
+    display: flex;
+    align-items: center; /* Alinea verticalmente el ícono y el mensaje */
+    gap: 10px; /* Espacio entre el ícono y el mensaje */
+}
+.usuarios{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 30px;
+    width: 100%;
+    display: flex;
+    align-items: start;
+}
+.perfiles{
+    width: 80%;
+    display: block;
+    gap: 20px;
+}
+
+.formulario__mensaje-sinCoincidencia {
+    visibility: hidden; /* Se oculta el mensaje, pero mantiene el espacio ocupado */
+    margin-left: 10px; /* Opcional, agrega espacio entre el ícono y el mensaje */
+    color: red; /* O el color que prefieras */
+    font-size: 0.9em;
+}
+
+.mensajes {
+    visibility: visible; /* Cuando el mensaje debe ser visible, se usa esto */
+}
+
+.mesajesOcultos{
+    display: hidden;
+}
+.buscador__btn{
+    width: 40px;
+    background-color: #e5e5e5;
+    border: none;
+}
+.input_buscar{
+    background-color: #edf2f4;
+}
+#cantidadUsuarios{
+    color: #F58634;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.imagen-ovalada{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid #F58634;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 65%);
+    object-fit: cover;
+}
+.descripcion{
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+.perfilUnitario{
+    display: flex;
+    padding-left: 30px;
+    width: 100%;
+    justify-content:space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 70px;
+}
+
+.scrollable-contenedor {
+    height: 70%;
+    overflow: auto;
+    padding: 10px;
+}
+
+
+.mostrar {
+    display: flex;
+}
+
+.esconder {
+    display: none;
+}
+
+.botonesPerfil{
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Esto agrega 10px de espacio entre los elementos */
+    margin-left: 10px;
+}
+
+.btn{
+    margin-top: 2px;
+    padding: 8px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    width: auto;
+    display: inline-block;
+}
+
+.btn:hover {
+    background-color: black;
+    opacity: 0.8;
+}
+
+.green{
+    background-color: green;
+}
+
+.red{
+    background-color: red;
+}

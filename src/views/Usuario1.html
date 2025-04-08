@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/Usuario1_moni.css">
+    <link rel="stylesheet" href="/css/header_footer.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Usuario</title>
+</head>
+
+<body class="total">
+    <header>
+        <nav>
+            <div class="menu">
+                <a href="/" class="a-order">
+                    <img src="/img/Logo.png" alt="logo" srcset="" class="logo">
+                </a>
+                <button class="hamburger"><i class="fa-solid fa-bars"></i></button>
+                <ul class="ulMenu hidden2">
+                    <li class="serviciosMenu fix"><a class="centr" href="/servicios">Servicios</a></li>
+                    <li class="serviciosMenu fix"><a href="/denuncias">Denuncias</a></li>
+                    <li class="serviciosMenu fix"><a href="#footer">Contactenos</a></li>
+                </ul>
+                <div class="iconosHeader contenedorSesion">
+                    <button class="buttonDesplegar desplegarSesion">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <i class="fa-solid fa-angle-up"></i>
+                    </button>
+                    <div class="lista hidden contenedor_padre">
+                        <div id="sesiones" class="sesiones">
+                            <div class="contenedor-izquierdo">
+                                <p id="titulo_formulario">¿Ya tienes cuenta?<br>Escribe tus datos aquí</p>
+                                <form action=# id="formulario">
+                                    <div class="formulario__grupo" id="grupo__email">
+                                        <label class="formulario__label" for="email">Correo Electrónico</label>
+                                        <div class="formulario__grupo-input">
+                                            <i class='bx bxs-envelope'></i>
+                                            <input type="email" class="formulario__input" name="email" id="email" placeholder="Correo electrónico">
+                                        </div>
+                                        <p class="formulario__input-error">El correo debe de seguir la siguiente estructura: dato1@dato2.dato3</p>
+                                    </div>
+                                    <div class="formulario__grupo" id="grupo__password">
+                                        <label class="formulario__label" for="password">Contraseña</label>
+                                        <div class="formulario__grupo-input">
+                                            <i class='bx bxs-lock-alt'></i>
+                                            <input type="password" class="formulario__input" name="password" id="password" placeholder="Contraseña">
+                                        </div>
+                                        <p class="formulario__input-error">La contraseña debe tener mínimo 4 carácteres y máximo 12 carácteres</p>
+                                        <a href="/recuperacion_contra">¿Olvidaste la contraseña?</a>
+                                    </div>
+                                    <div class="formulario__grupo formulario__grupo-btn-enviar">
+                                        <div class="formulario__button">
+                                            <i class='bx bxs-lock-alt'></i>
+                                            <a class="fix2" href="/perfil"><input  type="" value="Ingresar a cuenta" class="formulario__btn button_submit"></a> 
+                                        </div>
+                                    </div>
+                                    <p>o</p>
+                                </form>
+                                <div class="formulario__buttonGoogle">
+                                    <i class='bx bxl-google'></i>
+                                    <button type="button" class="formulario__btn button_google" id="boton-submit">Continuar con Google</button>
+                                </div>
+                        
+                                <div class="formulario__mensaje" id="formulario__mensaje">
+                                    <p><i class='bx bxs-x-circle' ></i>ERROR: Debes completar todos los campos</p>
+                                </div>
+                            </div>
+                            <div class="contenedor-derecho">
+                                <p>¿Aún no tienes cuenta?</p>
+                                <div class="formulario__grupo formulario__grupo-btn-registrarse">
+                                    <button type="button" class="formulario__btn button_registrarse" id="boton-submit"><a href="/registro">Registrarse</a></button>
+                                </div>
+                            </div>                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="seccionCentral">
+        <div class="cuerpo-seccion-central">
+            <div>
+                <div class="header-perfil">
+                    <img src="img/perfil1.jpg" alt="Perfil" class="imagen-ovalada">
+                    <p class="name">Susana Benavides</p>
+                </div>
+                <div class="informacion-personal">
+                    <div class="tag-informacion">
+                        <label class="titulo-info-personal">Identificación: </label>
+                        <p id="cedula" value="cedula">148651075</p>
+                    </div>
+                    <div class="tag-informacion">
+                        <label class="titulo-info-personal">Correo electrónico: </label>
+                        <p id="correo" value="correo">a123@municipalidad.co.cr</p>
+                    </div>
+                    <div class="tag-informacion">
+                        <label class="titulo-info-personal">Teléfono: </label>
+                        <p id="telefono" value="telefono">86308615</p>
+                    </div>
+                    <div class="tag-informacion">
+                        <label class="titulo-info-personal">Cantón: </label>
+                        <p id="canton" value="canton">Montes de Oca</p>
+                    </div>
+                    <div class="tag-informacion">
+                        <label class="titulo-info-personal">Distrito: </label>
+                        <p id="distrito" value="distrito">San Pedro</p>
+                    </div>
+                    <div class="direccion">
+                        <label class="titulo-info-personal">Dirección: </label>
+                        <p id="direccion" value="direccion">500 m al Este de la UCR</p>
+                    </div>
+                </div>
+                <div class="botonesEliminar">
+                    <ul>
+                        <li class="liEditar"><a href="#">Editar</a></li>
+                        <li class="liEditar"><a href="#">Eliminar</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="contenedor-denuncias">
+                <div class="titulo-denuncias">
+                    <label for="denuncia">Denuncias:</label>
+                    <select id="denuncia" name="denuncia">
+                        <option value="Todas"> Todas </option>
+                        <option value="denuncia1"> 27/06/2024 (Vecinos
+                            irrespetando
+                            zona de parqueo) </option>
+                        <option value="denuncia2"> 05/03/2023 (Recolección de
+                            basura
+                            ineficiente) </option>
+                        <option value="denuncia3"> 01/03/2023 (Problemas
+                            con el
+                            servicio de agua potable) </option>
+                        <option value="denuncia4"> 05/08/2022 (Suciedad en las calles)
+                        </option>
+                        <option value="denuncia5">02/08/2022 (Servicios de autobus
+                            ineficientes)</option>
+                    </select>
+                </div>
+                <div class="descripcion-denuncias">
+                    <div class="denuncia-individual" id="denuncia1">
+                        <div class="desc-denuncia">
+                            <h3 class="fecha-denuncia">27/06/2024</h3>
+                            <h3 class="asunto-denuncia">Vecinos irrespetando zona de parqueo</h3>
+                            <p class="prosa-denuncia"> Hoy intenté salir de mi casa en la mañana para el trabajo y se encontraba un automovil rojo con placa BS5097 parqueado al frente
+                            </p>
+                        </div>
+                        <div class="contenedor-imagen" data-images="img/porton1.jpg,img/porton2.jpg,img/porton3.jpg">
+                            <img src="img/porton1.jpg" alt="Imagen 1" class="imagen-denuncia" />
+                        </div>
+                    </div>
+                    <div class="denuncia-individual" id="denuncia2">
+                        <div class="desc-denuncia">
+                            <h3 class="fecha-denuncia">05/03/2023</h3>
+                            <h3 class="asunto-denuncia">Recolección de basura ineficiente</h3>
+                            <p class="prosa-denuncia">El camión de la basura lleva 2 semanas sin aparecer y yo siempre pago mis impuestos, me siento indignada
+                            </p>
+                        </div>
+                        <div class="contenedor-imagen"
+                            data-images="img/basura1.jpg,img/basura2.jpg,img/basura3.jpg,img/basura4.jpg">
+                            <img src="img/basura1.jpg" alt="Imagen 1" class="imagen-denuncia" />
+                        </div>
+                    </div>
+                    <div class="denuncia-individual" id="denuncia3">
+                        <div class="desc-denuncia">
+                            <h3 class="fecha-denuncia">01/03/2023</h3>
+                            <h3 class="asunto-denuncia">Problemas con el servicio de agua potable</h3>
+                            <p class="prosa-denuncia">El agua sale café del tubo!! nos podemos enfermar</p>
+                        </div>
+                        <div class="contenedor-imagen"
+                            data-images="img/agua1.jpg,img/agua2.jpg,img/agua3.jpg,img/agua4.jpg">
+                            <img src="img/agua1.jpg" alt="Imagen 1" class="imagen-denuncia" />
+                        </div>
+                    </div>
+                    <div class="denuncia-individual" id="denuncia4">
+                        <div class="desc-denuncia">
+                            <h3 class="fecha-denuncia">05/08/2022</h3>
+                            <h3 class="asunto-denuncia">Suciedad en las calles</h3>
+                            <p class="prosa-denuncia">Hay pájaros muertos y basura, deberíand de enviar a alguien que limpie
+                            </p>
+                        </div>
+                        <div class="contenedor-imagen" data-images="img/calle1.jpg,img/calle2.jpg">
+                            <img src="img/calle1.jpg" alt="Imagen 1" class="imagen-denuncia" />
+                        </div>
+                    </div>
+                    <div class="denuncia-individual" id="denuncia5">
+                        <div class="desc-denuncia">
+                            <h3 class="fecha-denuncia">02/08/2022</h3>
+                            <h3 class="asunto-denuncia">Servicios de autobus ineficientes</h3>
+                            <p class="prosa-denuncia">El bus pasa después de la hora que se supone y lleno
+                            </p>
+                        </div>
+                        <div class="contenedor-imagen" data-images="img/bus1.jpg,img/bus2.jpg,img/bus3.jpg">
+                            <img src="img/bus1.jpg" alt="Imagen 1" class="imagen-denuncia" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="padreFooter" id="footer">
+            <div class="hijosFooter1"><img src="/img/Logo_footer.png" alt="logo" srcset="" class="logoFooter"></div>
+            <div class="hijosFooter2">
+                <ul class="ulMenu menuFooter">
+                    <li class="serviciosMenu fix"><a href="/Servicios.html">Servicios</a></li>
+                    <li class="serviciosMenu fix"><a href="/Denuncias.html">Denuncias</a></li>
+                    <li class="serviciosMenu fix"><a href="#">Contactenos</a></li>
+                </ul>
+            </div>
+            <div class="hijosFooter3">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-x-twitter"></i>
+            </div>
+        </div>
+    </footer>
+    <script src="/js/Usuario1.js"></script>
+</body>
+
+</html>

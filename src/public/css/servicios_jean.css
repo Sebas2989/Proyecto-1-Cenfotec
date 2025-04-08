@@ -1,0 +1,102 @@
+/* Reset de márgenes, padding y box-sizing para asegurar consistencia */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: rgba(211, 211, 211, 0.164);
+}
+
+/* Estilos para el contenido principal */
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #50B1F0; 
+}
+
+
+/* Estilos para las opciones desplegables */
+.opciones {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas  */
+    gap: 10px; /* Espacio entre las columnas */
+    justify-content: center;
+}
+
+/* Estilo de los botones */
+.opcion {
+    background-color: #50B1F0; 
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center; 
+    justify-content: flex-start; 
+    gap: 10px; 
+    width: 100%; 
+    max-width: 400px; 
+    height: 80px; 
+    margin: 0 auto;
+}
+
+.opcion i {
+    font-size: 24px; /* Tamaño del icono */
+    margin-right: 15px;
+}
+
+.opcion:hover {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    background-color: #f58634; /* Efecto al pasar el ratón por encima */
+}
+
+/* Estilos para los textos desplegables */
+.texto {
+    position: absolute;
+    display: fixed;
+    background-color: #f4f4f4;
+    border-left: 4px solid #94cae2;
+    width: 20%;
+    padding: 15px;
+    margin-top: 10px;
+    display: none; /* Ocultamos el texto por defecto */
+}
+
+/* Contenedor que agrupa el icono, el botón y el texto */
+.opcion-container {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 250px;
+    margin-bottom: 50px;
+    margin-top: 20px; /* Espacio entre las opciones */
+}
+
+/* Asegura que el texto aparezca debajo del botón cuando se haga clic */
+.texto.show {
+    display: block; /* Muestra el texto cuando se agrega la clase 'show' */
+}
+
+/* Fondo de la página */
+
+/* Sección de denuncias */
+.denuncias {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.denuncias h1 {
+    font-size: 32px;
+    color: #34495e; /* Color oscuro para el encabezado */
+    margin-bottom: 30px;
+}
+
