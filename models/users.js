@@ -8,7 +8,7 @@ const DB_URL = 'mongodb://localhost:27017/Proyecto';
 //Conectamos
 mongoose.connect(DB_URL,{})
 
-    .then(()=>console.log("DB CONECTADA"))
+    .then(()=>console.log("Base de Datos Conectada"))
     .catch(err=>console.log(err))
 
 
