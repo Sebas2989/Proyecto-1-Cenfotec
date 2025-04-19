@@ -6,6 +6,16 @@
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/header_footer.css"> 
+    
+    <link rel="stylesheet" href="css/Inicio_Sesion_moni.css">
+    <link rel="stylesheet" href="css/denunciasjean.css">
+
+
+    
+   
+   
+    <link rel="stylesheet" href="css/Botones.css">
+     
     <!-- <link rel="stylesheet" href="css/denuncias_jean.css">  -->
     <!-- <link rel="stylesheet" href="css/Inicio_Sesion_moni.css"> -->
     <!-- <link rel="stylesheet" href="css/Botones.css"> -->
@@ -14,7 +24,6 @@
 
 <body>
     <header>
-        <h1>test</h1>
         <nav>
             <div class="menu">
                 <a href="/" class="a-order">
@@ -92,11 +101,11 @@
 
         <!-- Formulario Nueva Denuncia -->
         <div class="nuevaDenunciaForm_jean hide_jean" id="nuevaDenunciaForm_jean">
-            <form class="forma_jean" onsubmit="event.preventDefault(); validarFormulario();">
+            <form class="forma_jean"  action="/denuncias"   method="post"   >
                 <label for="denunciaNombre_jean">Asunto:</label>
                 <input type="text" id="denunciaNombre_jean" name="denunciaNombre_jean" required><br>
 
-                <label for="fechaDenuncia_jean">Fecha de la denuncia:</label>
+                <label for="fechaDenuncia_jean">Fecha en la que occurrio el suceso:</label>
                 <input type="date" id="fechaDenuncia_jean" name="fechaDenuncia_jean" required><br>
 
                 <label for="comentarios_jean">Comentarios:</label>
@@ -106,7 +115,7 @@
                 <input type="file" name="fotos_jean"><br>
 
                 <button type="button" class="btnCancelar_jean" onclick="cerrarFormulario()">Cancelar</button>
-                <button type="button" class="btnPublicar_jean" onclick="validarFormulario()">Publicar Denuncia</button>
+                <button type="submit" class="btnPublicar_jean" >Publicar Denuncia</button>
             </form>
         </div>
 
@@ -159,5 +168,7 @@
         </div>
     </footer>
     <script src="js/denuncia.js" defer></script> 
+    <script src="js/Inicio_Sesion.js" defer></script>
+    <script src="js/Header.js" defer></script>
 </body>
 </html>

@@ -60,9 +60,62 @@ app.get('/correo_enviado',(req, res) =>{
 });
 
 
-app.get('/denuncias',(req, res) =>{
-    res.render("Denuncias.html");
-});
+
+const denunciaModel = require('../models/denuncias');
+
+app.route('/denuncias')
+
+.get((req, res) => {
+    res.render("denuncias.html");
+  })
+  
+  
+  .post(async (req, res) => {
+    try {
+      
+      const denuncia = new denunciaModel({
+        asunto: req.body.denunciaNombre_jean,
+        fecha: req.body.fechaDenuncia_jean,
+        comentarios: req.body.comentarios_jean
+      });
+
+      const savedDenuncia = await denuncia.save(); // ← aquí está el cambio
+      await denuncia.save();
+      
+      res.redirect('/denuncias');
+      console.log(savedDenuncia)
+    } catch (err) {
+      console.log(err);
+      
+    }
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 app.get('/inicio_sesion',(req, res) =>{
@@ -146,3 +199,5 @@ app.post('/authenticateIniciosesion',(req,res)=>{
 
     existeUsuario();
 })
+
+//
