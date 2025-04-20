@@ -14,7 +14,8 @@ const denunciasSchema = new mongoose.Schema({
     fecha: { type: Date, required: true },
     comentarios: { type: String, required: true },
     status: { type: String,enum: ['activo', 'resuelto', 'revision'],   default: 'activo' },
-    fechaCreacion: {type:Date, default:Date.now}
+    fechaCreacion: {type:Date, default:Date.now},
+    imagenes:{type:[String]}
 
 
 

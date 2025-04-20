@@ -40,3 +40,57 @@ function toggleTexto(index) {
 document.querySelectorAll('.opcion').forEach((button, index) => {
     button.addEventListener('click', () => toggleTexto(index)); // Llama a la función de toggle cuando se hace clic
 });
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("miModal");
+    const cerrar = document.querySelector(".close");
+    const form = document.getElementById("modalForm");
+  
+    document.querySelectorAll(".idDenuncia").forEach(td => {
+      td.addEventListener("click", function () {
+        document.getElementById("modalId").textContent = this.dataset.id;
+        document.getElementById("modalAsunto").textContent = this.dataset.asunto;
+        document.getElementById("modalFecha").textContent = this.dataset.fecha;
+        document.getElementById("modalFechaSuceso").textContent = this.dataset.fechaCreacion;
+        document.getElementById("modalEstado").textContent = this.dataset.estado;
+  
+        // Mostrar hasta 5 imágenes
+        const imagenesDiv = document.getElementById("modalImagenes");
+        imagenesDiv.innerHTML = '';
+        const imagenes = JSON.parse(this.dataset.imagenes || "[]");
+        imagenes.slice(0, 5).forEach(src => {
+          const img = document.createElement("img");
+          img.src = src;
+          imagenesDiv.appendChild(img);
+        });
+  
+        modal.style.display = "block";
+      });
+    });
+  
+    cerrar.onclick = () => {
+      modal.style.display = "none";
+      form.reset();
+    };
+  
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+  
+      const id = document.getElementById("modalId").textContent;
+      const nuevoEstado = document.getElementById("estadoSelect").value;
+      const comentario = document.getElementById("comentario").value;
+  
+      console.log("Cambios para ID:", id);
+      console.log("Nuevo estado:", nuevoEstado);
+      console.log("Comentario:", comentario);
+  
+      alert("Cambios guardados (simulado)");
+      modal.style.display = "none";
+      form.reset();
+    });
+  });
+  
