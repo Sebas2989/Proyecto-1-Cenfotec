@@ -65,8 +65,16 @@ const denunciaModel = require('../models/denuncias');
 
 app.route('/denuncias')
 
-.get((req, res) => {
-    res.render("denuncias.html");
+.get(async(req, res) => {
+// optener datos de db
+const denuncias = require("../models/denuncias.js");
+const lsitaDenuncias = await denuncias.find();
+// console.log(lsitaDenuncias); 
+// eviar datos a pantalla
+
+
+
+    res.render("denuncias.ejs", {lsitaDenuncias:lsitaDenuncias});
   })
   
   

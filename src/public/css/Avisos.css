@@ -1,44 +1,86 @@
-*{
-    margin: 0;
-    padding: 0;
-}
-body{
+.faq-section {
+    padding: 20px;
     background-color: rgba(211, 211, 211, 0.164);
+    font-family: Arial, sans-serif;
 }
 
-
-
-.fix {
-    font-size: 1.5em;
-}
-.fix2{
+/* Título */
+.faq-section h1 {
     text-align: center;
-    margin-left: 30px;
+    margin-bottom: 30px;
+    color: #50B1F0;
 }
 
-
-/*----------------------------------------------------------------------------BODY-----------------------------------------------------*/
-
-.noticias{
-    display: flex;
+/* Contenedor de las opciones en dos columnas */
+.faq-section .opciones {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
     justify-content: center;
-    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Contenedor individual de cada opción */
+.faq-section .opcion-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s ease;
     width: 100%;
-    height: 100%;
 }
-.inzona3{
-    text-align: center;
-    padding: 15px 0px;
+
+/* Efecto hover */
+.faq-section .opcion-container:hover {
+    transform: translateY(-5px);
 }
-.padre_avisos-servicios{
-    display: flex;
-}
-.avisos-servicios{
-    border: 2px solid rgba(0, 0, 0, 0.423);
+
+/* Botón de opción */
+.faq-section .opcion {
+    background-color: #50B1F0;
+    color: white;
+    padding: 15px 20px;
+    font-size: 18px;
+    border: none;
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    min-width: 50%;
-    height: 350px;
+    gap: 10px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+}
+
+.faq-section .opcion i {
+    font-size: 24px;
+}
+
+.faq-section .opcion:hover {
+    background-color: #f58634;
+}
+
+/* Texto desplegable */
+.faq-section .texto {
+    display: none;
+    padding: 15px 20px;
+    background-color: #f4f4f4;
+    border-top: 1px solid #ddd;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Mostrar el texto cuando se activa */
+.faq-section .texto.show {
+    display: block;
+}
+
+/* Animación de aparición */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
