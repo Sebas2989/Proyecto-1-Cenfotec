@@ -18,7 +18,7 @@ const compararValores = () => {
         });
         return; // Salir de la función si no hay texto
     }
-    
+    //s
     // Iterar sobre todos los perfiles y verificar si el texto del input coincide con el nombre del perfil
     perfiles.forEach(perfil => {
         const nombrePerfil = perfil.querySelector('.nombreDescrito').textContent.trim().toLowerCase();  // Obtener el texto del nombre del perfil
