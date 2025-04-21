@@ -153,49 +153,111 @@
     .centrarMenu{
         margin-top: 35px;       
     }
+}
+/* Tablets: 601px - 1024px */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .cuerpo-seccion-central {
+        flex-direction: column;
+        padding: 20px;
+        height: auto;
+    }
 
-    /* .padreFooter {
-        padding-top: 10px;
-        box-shadow: 0px 4px 7px 7px rgba(0, 0, 0, 0.463);
+    .header-perfil {
         width: 100%;
-        display: flex;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        background-color: white;
+        padding: 10px;
     }
 
-    .hijosFooter1 {
-        width: 23.3%;
+    .imagen-ovalada {
+        width: 150px;
+        height: 150px;
     }
 
-    .logoFooter {
+    .informacion-personal {
+        width: 90%;
+    }
+
+    .botonesEliminar {
+        width: 90%;
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .liEditar {
+        font-size: 1.2em;
+        padding: 12px;
+    }
+
+    .titulo-info-personal {
+        font-size: 1.2em;
+    }
+
+    p {
+        font-size: 1.1em;
+    }
+
+    .menu {
+        flex-direction: column;
+    }
+
+    .centrarMenu {
+        margin-top: 20px;
+    }
+}
+
+/* Móviles: hasta 600px */
+@media (max-width: 600px) {
+    .cuerpo-seccion-central {
+        flex-direction: column;
+        padding: 15px;
+        height: auto;
+    }
+
+    .header-perfil {
         width: 100%;
-        max-width: 300px;
-        margin: 0px 0px;
+        padding: 10px;
+        gap: 15px;
     }
 
-    .hijosFooter2 {
-        display: flex;
-        justify-content: space-between;
-        width: 53.3%;
+    .imagen-ovalada {
+        width: 120px;
+        height: 120px;
     }
 
-    .menuFooter {
+    .informacion-personal {
         width: 100%;
-        display: flex;
-        justify-content: space-around;
+        padding: 15px;
     }
 
-    .hijosFooter3 {
-        display: flex;
-        justify-content: center;
+    .botonesEliminar {
+        width: 100%;
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .liEditar {
+        font-size: 1em;
+        padding: 10px;
+    }
+
+    .titulo-info-personal {
+        font-size: 1em;
+    }
+
+    p {
+        font-size: 1em;
+    }
+
+    .centrarMenu {
+        margin-top: 15px;
+    }
+
+    nav .menu {
+        flex-direction: column;
         align-items: center;
-        width: 23.3%;
     }
 
-    .hijosFooter3 i {
-        margin: 10px;
-    } */
-
+    .ulMenu {
+        flex-direction: column;
+        gap: 10px;
+    }
 }

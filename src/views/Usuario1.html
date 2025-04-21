@@ -7,6 +7,8 @@
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="stylesheet" href="/css/Usuario1_moni.css">
     <link rel="stylesheet" href="/css/header_footer.css">
+    <link rel="stylesheet" href="css/Inicio_Sesion_moni.css">
+    <link rel="stylesheet" href="css/Botones.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
@@ -22,7 +24,7 @@
                     <img src="/img/Logo.png" alt="logo" srcset="" class="logo">
                 </a>
                 <button class="hamburger"><i class="fa-solid fa-bars"></i></button>
-                <ul class="ulMenu hidden2">
+                <ul class="ulMenu hidden2 centrarMenu">
                     <li class="serviciosMenu fix"><a class="centr" href="/servicios">Servicios</a></li>
                     <li class="serviciosMenu fix"><a href="/denuncias">Denuncias</a></li>
                     <li class="serviciosMenu fix"><a href="#footer">Contactenos</a></li>
@@ -84,6 +86,7 @@
         </nav>
     </header>
     <div class="seccionCentral">
+        <div class="fondo-contenedor"></div>
         <div class="cuerpo-seccion-central">
             <div>
                 <div class="header-perfil">
@@ -126,25 +129,25 @@
             <div class="contenedor-denuncias">
                 <div class="titulo-denuncias">
                     <label for="denuncia">Denuncias:</label>
-                    <select id="denuncia" name="denuncia">
+                    <select id="denuncia-usuario" name="denuncia-usuario">
                         <option value="Todas"> Todas </option>
-                        <option value="denuncia1"> 27/06/2024 (Vecinos
+                        <option value="denuncia-usuario1"> 27/06/2024 (Vecinos
                             irrespetando
                             zona de parqueo) </option>
-                        <option value="denuncia2"> 05/03/2023 (Recolección de
+                        <option value="denuncia-usuario2"> 05/03/2023 (Recolección de
                             basura
                             ineficiente) </option>
-                        <option value="denuncia3"> 01/03/2023 (Problemas
+                        <option value="denuncia-usuario3"> 01/03/2023 (Problemas
                             con el
                             servicio de agua potable) </option>
-                        <option value="denuncia4"> 05/08/2022 (Suciedad en las calles)
+                        <option value="denuncia-usuario4"> 05/08/2022 (Suciedad en las calles)
                         </option>
-                        <option value="denuncia5">02/08/2022 (Servicios de autobus
+                        <option value="denuncia-usuario5">02/08/2022 (Servicios de autobus
                             ineficientes)</option>
                     </select>
                 </div>
                 <div class="descripcion-denuncias">
-                    <div class="denuncia-individual" id="denuncia1">
+                    <div class="denuncia-individual" id="denuncia-usuario1">
                         <div class="desc-denuncia">
                             <h3 class="fecha-denuncia">27/06/2024</h3>
                             <h3 class="asunto-denuncia">Vecinos irrespetando zona de parqueo</h3>
@@ -155,7 +158,7 @@
                             <img src="img/porton1.jpg" alt="Imagen 1" class="imagen-denuncia" />
                         </div>
                     </div>
-                    <div class="denuncia-individual" id="denuncia2">
+                    <div class="denuncia-individual" id="denuncia-usuario2">
                         <div class="desc-denuncia">
                             <h3 class="fecha-denuncia">05/03/2023</h3>
                             <h3 class="asunto-denuncia">Recolección de basura ineficiente</h3>
@@ -167,7 +170,7 @@
                             <img src="img/basura1.jpg" alt="Imagen 1" class="imagen-denuncia" />
                         </div>
                     </div>
-                    <div class="denuncia-individual" id="denuncia3">
+                    <div class="denuncia-individual" id="denuncia-usuario3">
                         <div class="desc-denuncia">
                             <h3 class="fecha-denuncia">01/03/2023</h3>
                             <h3 class="asunto-denuncia">Problemas con el servicio de agua potable</h3>
@@ -178,7 +181,7 @@
                             <img src="img/agua1.jpg" alt="Imagen 1" class="imagen-denuncia" />
                         </div>
                     </div>
-                    <div class="denuncia-individual" id="denuncia4">
+                    <div class="denuncia-individual" id="denuncia-usuario4">
                         <div class="desc-denuncia">
                             <h3 class="fecha-denuncia">05/08/2022</h3>
                             <h3 class="asunto-denuncia">Suciedad en las calles</h3>
@@ -189,7 +192,7 @@
                             <img src="img/calle1.jpg" alt="Imagen 1" class="imagen-denuncia" />
                         </div>
                     </div>
-                    <div class="denuncia-individual" id="denuncia5">
+                    <div class="denuncia-individual" id="denuncia-usuario5">
                         <div class="desc-denuncia">
                             <h3 class="fecha-denuncia">02/08/2022</h3>
                             <h3 class="asunto-denuncia">Servicios de autobus ineficientes</h3>

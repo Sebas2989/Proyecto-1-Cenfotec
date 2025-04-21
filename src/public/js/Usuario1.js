@@ -1,6 +1,6 @@
 const contenedores = document.querySelectorAll('.contenedor-imagen');
 
-const selectDenuncia = document.getElementById('denuncia');
+const selectDenuncia = document.getElementById('denuncia-usuario');
 
     const denuncias = document.querySelectorAll('.denuncia-individual');
 
@@ -40,7 +40,7 @@ const selectDenuncia = document.getElementById('denuncia');
                 denuncia.classList.add('mostrar');
             });
         } else{
-            const denunciaSeleccionada = document.getElementById(`denuncia${selectDenuncia.selectedIndex}`);
+            const denunciaSeleccionada = document.getElementById(`denuncia-usuario${selectDenuncia.selectedIndex}`);
             denunciaSeleccionada.classList.remove('oculto');
             denunciaSeleccionada.classList.add('mostrar');
         }
