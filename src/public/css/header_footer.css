@@ -468,7 +468,7 @@
 
     .ulMenu li {
         display: flex;
-        padding: 15px 190px 15px 0px;
+        padding: 15px 15px 15px 15px;
     }
 
     .ulMenu {
@@ -490,22 +490,20 @@
 
     .menuFooter{
         font-size: 25px;
-        border: 5px solid red;
         display: flex;
-        background-color: white;
         align-items: center;
-        box-shadow: 0px -4px 7px 7px rgba(0, 0, 0, 0.463);
         height: 50px;
         margin: 0 auto;
         justify-content: center;
-        gap: 20px; /* Ajusta este valor según el espacio deseado */
-        padding: 12px 0px 0px 0px;
+        margin-top: 15px;
+        margin-right: 25px;
+        background-color: transparent;
     }
 
     .ulMenu.hidden2 {
         font-size: 50px;
-        height: 300px;
-        width: auto;
+        height: 250px;
+        width: 180px;
         display: flex;
         flex-direction: column;
         position: absolute;
@@ -591,7 +589,6 @@
         width: 100%;
         max-width: 100px;
         border-radius: 0;
-        margin: 0px 0px;
     }
 
     .liLogin a {
@@ -627,7 +624,7 @@
     .padreFooter {
         background-color: white;
         box-shadow: 0px 2px 3.5px 3.5px rgba(0, 0, 0, 0.463);
-        width: 95%;
+        width: 100%;
         display: flex;
     }
 
@@ -638,18 +635,17 @@
     .logoFooter {
         width: 100%;
         max-width: 100px;
-        margin: 0px 0px;
     }
 
     .hijosFooter2 {
         display: flex;
         justify-content: center;
+        align-items: center;
         width: 53.3%;
     }
 
     .menuFooter {
         width: 100%;
-        padding: 6px 2px 0px 0px;
         display: flex;
     }
 
@@ -658,6 +654,7 @@
         justify-content: center;
         align-items: center;
         width: 23.3%;
+        margin-bottom: 15px;
     }
 
     .hijosFooter3 i {

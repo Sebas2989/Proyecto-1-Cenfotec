@@ -40,6 +40,10 @@
         margin-left: 110px;
     }
 
+    .centrarMenu{
+        margin-top: 35px;       
+    }
+
     .formulario__grupo-btn-buscar {
         display: flex;
         align-items: center;
@@ -185,6 +189,10 @@
     .fix {
         margin-right: 50px;
         margin-bottom: 25px;
+    }
+
+    .centrarMenu {
+        margin-top: 35px;
     }
 
     .seccionCentral {
@@ -373,6 +381,10 @@
         display: inline-block;
         justify-content: center;
         padding-top: 20px;
+    }
+
+    .centrarMenu {
+        margin-top: 25px;
     }
 
     .buscador {

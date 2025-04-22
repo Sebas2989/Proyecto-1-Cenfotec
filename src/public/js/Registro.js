@@ -1,5 +1,7 @@
 const $inputs2 = document.querySelectorAll('#formulario_moni input');
 const $formulario2 = document.getElementById('formulario_moni');
+const hamburger = document.querySelector('.hamburger');
+const menu = document.querySelector('.ulMenu');
 
 const datosPersona2 = {
     nombre: "Alejandro Rodriguez",
@@ -104,6 +106,10 @@ const validarCampo2 = (expresion, input, campo) => {
         campos2[campo] = false;
     }
 };
+
+hamburger.addEventListener('click', () => {
+    menu.classList.toggle('hidden2');
+});
 
 $inputs2.forEach((input) => {
     input.addEventListener("keyup", validarFormulario2);
