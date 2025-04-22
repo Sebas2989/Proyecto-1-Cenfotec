@@ -105,12 +105,12 @@ const validarCampo2 = (expresion, input, campo) => {
     }
 };
 
-$inputs2.forEach((input) => {
+ $inputs2.forEach((input) => {
     input.addEventListener("keyup", validarFormulario2);
     input.addEventListener("blur", validarFormulario2);
 });
 
-$formulario2.addEventListener("submit", (e) => {
+/* $formulario2.addEventListener("submit", (e) => {
     e.preventDefault();
 
     if (campos2.nombre == false || campos2.identificacion == false || campos2.email == false || campos2.password == false ||
@@ -125,6 +125,18 @@ $formulario2.addEventListener("submit", (e) => {
             location.reload();
         }, 4000);
     }
+});  
+ */
+
+$formulario2.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    if (campos2.nombre && campos2.identificacion && campos2.email && campos2.password &&
+        campos2.direccion && campos2.distrito && campos2.telefono) {
+        console.log("Se ingresó correctamente");
+        $formulario2.submit(); // Envía el formulario al servidor
+    } else {
+        document.getElementById("formulario__mensaje_moni").classList.add("formulario__mensaje-activo");
+        console.log("Error en las validaciones");
+    }
 });
-
-

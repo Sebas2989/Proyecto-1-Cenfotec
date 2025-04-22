@@ -4,7 +4,7 @@ console.log("Vamos con todo, este proyecto se saca")
 // Requerir módulos al inicio
 
 const express = require('express');
-
+const multer = require('multer');
 const path = require('path');
 
 //INICIALIZAR EL SERVER
@@ -28,8 +28,19 @@ app.use(bodyParser.urlencoded({extended:false}));
 }
 */
 
+// Configuración de multer
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, 'public', 'img')); // Carpeta donde se guardarán las imágenes
+    },
+    filename: (req, file, cb) => {
+        cb(null, req.body.email_moni + '-' + file.originalname); // Prefijo con el correo del usuario
+    }
+});
 
+const upload = multer({ storage: storage });
 
+app.use(express.static(path.join(__dirname, 'public')));
 
 //ARCHIVOS STATICOS
 
@@ -108,13 +119,48 @@ app.get('/otros_usuarios',(req, res) =>{
     res.render("Otros_Usuarios.html");
 });
 
-
 const user = require('../models/users.js');
+
+
+//Registro formulario
+app.post('/register', upload.single('imagen_moni'), async (req, res) => {
+    try {
+        // Verificar si el correo ya existe en la base de datos
+        const correoExistente = await user.findOne({ correo: req.body.email_moni });
+        if (correoExistente) {
+            console.log("El correo ya está registrado");
+            return res.status(400).send("El correo ya está registrado. Intente con otro.");
+        }
+
+        // Crear un nuevo usuario
+        let data = new user({
+            nombre: req.body.nombre_moni,
+            identificacion: req.body.identificacion_moni,
+            correo: req.body.email_moni,
+            password: req.body.password_moni,
+            password2: req.body.password2,
+            direccion: req.body.direccion_moni,
+            informacion: req.body.informacion_moni,
+            distrito: req.body.distrito_moni,
+            telefono: req.body.telefono_moni,
+            imagen: req.file.filename
+        });
+
+        // Guardar el usuario en la base de datos
+        await data.save();
+        console.log("Usuario creado");
+        res.redirect('/'); // Redirigir a la página principal o donde desees
+    } catch (err) {
+        console.log("ERROR", err);
+        res.status(500).send("Ocurrió un error al registrar el usuario.");
+    }
+});
+
 
 
 //Inicio sesion formulario
 
-app.post('/authenticateIniciosesion',(req,res)=>{
+ app.post('/autenticarinicio',(req,res)=>{
 
     //Paso 1: ocupamos obtener los datos
 
@@ -132,7 +178,7 @@ app.post('/authenticateIniciosesion',(req,res)=>{
             //Paso3: Verificar si la contraseña del usuario coincide con la de DB
             if(usuario.password===datos.password){
                 console.log("El usuario pudo ingresar");
-                res.redirect('/');
+                res.redirect('/perfil');
             }else{
                 console.log("La contraseña es incorrecta");
                 res.redirect('/registro');
@@ -146,3 +192,4 @@ app.post('/authenticateIniciosesion',(req,res)=>{
 
     existeUsuario();
 })
+ 
