@@ -9,16 +9,7 @@
     
     <link rel="stylesheet" href="css/Inicio_Sesion_moni.css">
     <link rel="stylesheet" href="css/denunciasjean.css">
-
-
-    
-   
-   
     <link rel="stylesheet" href="css/Botones.css">
-     
-    <!-- <link rel="stylesheet" href="css/denuncias_jean.css">  -->
-    <!-- <link rel="stylesheet" href="css/Inicio_Sesion_moni.css"> -->
-    <!-- <link rel="stylesheet" href="css/Botones.css"> -->
     <title>Denuncias</title>
 </head>
 
@@ -36,15 +27,24 @@
                     <li class="serviciosMenu fix"><a href="#footer">Contactenos</a></li>
                 </ul>
                 <div class="iconosHeader contenedorSesion">
+                    <% if (role) { %>
+                        <a href="/perfil" class="buttonnDesplegar desplegarSesion">
+                            <i class="fa-solid fa-circle-user"></i>
+                        </a> 
+                         <form action="/logout" method="get">
+                            <button class="formulario__buttonn">
+                                <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+                            </button>
+                        </form>
+                    <% } else { %>
                     <button class="buttonDesplegar desplegarSesion">
                         <i class="fa-solid fa-circle-user"></i>
-                        <i class="fa-solid fa-angle-up"></i>
                     </button>
                     <div class="lista hidden contenedor_padre">
                         <div id="sesiones" class="sesiones">
                             <div class="contenedor-izquierdo">
                                 <p id="titulo_formulario">¿Ya tienes cuenta?<br>Escribe tus datos aquí</p>
-                                <form action=# id="formulario">
+                                <form action=/autenticarinicio method="post" id="formulario">
                                     <div class="formulario__grupo" id="grupo__email">
                                         <label class="formulario__label" for="email">Correo Electrónico</label>
                                         <div class="formulario__grupo-input">
@@ -65,7 +65,7 @@
                                     <div class="formulario__grupo formulario__grupo-btn-enviar">
                                         <div class="formulario__button">
                                             <i class='bx bxs-lock-alt'></i>
-                                            <a class="fix2" href="/perfil"><input  type="" value="Ingresar a cuenta" class="formulario__btn button_submit"></a> 
+                                            <input  type="submit" value="Ingresar a cuenta" class="formulario__btn button_submit">
                                         </div>
                                     </div>
                                     <p>o</p>
@@ -87,6 +87,7 @@
                             </div>                
                         </div>
                     </div>
+                    <% } %>
                 </div>
             </div>
         </nav>
@@ -95,7 +96,7 @@
     <!-- Sección Denuncias -->
     <div class="denuncias fix_jean">
         <h1>Denuncias</h1>
-        
+        <% if (role) { %>
         <!-- Botón para mostrar el formulario -->
         <button class="boton_jean" onclick="mostrarFormulario()">Nueva Denuncia</button>
 
@@ -118,12 +119,12 @@
                 <button type="submit" class="btnPublicar_jean" >Publicar Denuncia</button>
             </form>
         </div>
-
+        <% } %>
         <!-- Tabla de Denuncias -->
         <table class="tableDenuncias_jean show_jean">
             <thead>
               <tr>
-                <th>ID</th>
+                <th>Correo</th>
                 <th>Nombre Denuncia</th>
                 <th>Fecha Denuncia</th>
                 <th>Fecha Suceso</th>
@@ -131,26 +132,23 @@
               </tr>
             </thead>
             <tbody>
-              <% lsitaDenuncias.forEach(denuncias => { %>
-                <tr>
-                  <td 
-                    class="idDenuncia"
-                    data-id="<%= denuncias._id %>"
-                    data-asunto="<%= denuncias.asunto %>"
-                    data-fecha="<%= denuncias.fecha.toLocaleDateString('es-ES') %>"
-                    data-fecha-creacion="<%= denuncias.fechaCreacion.toLocaleDateString('es-ES') %>"
-                    data-estado="<%= denuncias.status %>"
-                    data-imagenes='<%= JSON.stringify(denuncias.imagenes || []) %>'
-                  >
-                    <%= denuncias._id %>
-                  </td>
-                  <td><%= denuncias.asunto %></td>
-                  <td><%= denuncias.fecha.toLocaleDateString('es-ES') %></td>
-                  <td><%= denuncias.fechaCreacion.toLocaleDateString('es-ES') %></td>
-                  <td><%= denuncias.status %></td>
-                </tr>
-              <% }) %>
-            </tbody>
+                <% listaDenuncias.forEach(denuncias => { %>
+                    <tr>
+                        <td class="idDenuncia"
+                        data-id="<%= denuncias._id %>"
+                        data-asunto="<%= denuncias.asunto %>"
+                        data-fecha="<%= denuncias.fecha.toLocaleDateString('es-ES') %>"
+                        data-fecha-creacion="<%= denuncias.fechaCreacion.toLocaleDateString('es-ES') %>"
+                        data-estado="<%= denuncias.status %>"
+                        data-imagenes='<%= JSON.stringify(denuncias.imagenes || []) %>'><%= denuncias.correo %>
+                        </td>
+                        <td><%= denuncias.asunto %></td>
+                        <td><%= denuncias.fecha.toLocaleDateString('es-ES') %></td>
+                        <td><%= denuncias.fechaCreacion.toLocaleDateString('es-ES') %></td>
+                        <td><%= denuncias.status %></td>
+                    </tr>
+                    <% }) %>
+              </tbody>
           </table>
           
           <!-- Modal (puede ir al final del body) -->

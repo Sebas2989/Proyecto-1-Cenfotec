@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <link href="https://unpkg.com/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/header_footer.css"> 
     <link rel="stylesheet" href="css/servicios_jean.css">
@@ -29,15 +28,24 @@
                     <li class="serviciosMenu fix"><a href="#footer">Contactenos</a></li>
                 </ul>
                 <div class="iconosHeader contenedorSesion">
+                    <% if (role) { %>
+                        <a href="/perfil" class="buttonnDesplegar desplegarSesion">
+                            <i class="fa-solid fa-circle-user"></i>
+                        </a> 
+                         <form action="/logout" method="get">
+                            <button class="formulario__buttonn">
+                                <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+                            </button>
+                        </form>
+                    <% } else { %>
                     <button class="buttonDesplegar desplegarSesion">
                         <i class="fa-solid fa-circle-user"></i>
-                        <i class="fa-solid fa-angle-up"></i>
                     </button>
                     <div class="lista hidden contenedor_padre">
                         <div id="sesiones" class="sesiones">
                             <div class="contenedor-izquierdo">
                                 <p id="titulo_formulario">¿Ya tienes cuenta?<br>Escribe tus datos aquí</p>
-                                <form action=# id="formulario">
+                                <form action=/autenticarinicio method="post" id="formulario">
                                     <div class="formulario__grupo" id="grupo__email">
                                         <label class="formulario__label" for="email">Correo Electrónico</label>
                                         <div class="formulario__grupo-input">
@@ -58,7 +66,7 @@
                                     <div class="formulario__grupo formulario__grupo-btn-enviar">
                                         <div class="formulario__button">
                                             <i class='bx bxs-lock-alt'></i>
-                                            <a class="fix2" href="/perfil"><input  type="" value="Ingresar a cuenta" class="formulario__btn button_submit"></a> 
+                                            <input  type="submit" value="Ingresar a cuenta" class="formulario__btn button_submit">
                                         </div>
                                     </div>
                                     <p>o</p>
@@ -80,6 +88,7 @@
                             </div>                
                         </div>
                     </div>
+                    <% } %>
                 </div>
             </div>
         </nav>
