@@ -23,7 +23,8 @@ const userSchema = new mongoose.Schema({
     informacion: { type: String },
     distrito: { type: String },
     telefono: { type: String },
-    imagen: { type: String }
+    imagen: { type: String },
+    rol: { type: String, default: 'usuario' }
 },{versionKey: false});
 
 //Creamos la coleccion 

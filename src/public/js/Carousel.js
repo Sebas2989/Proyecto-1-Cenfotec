@@ -1,4 +1,4 @@
-const menu = document.querySelector(".menu");
+/* const menu = document.querySelector(".menu");
 const hamburger= document.querySelector(".hamburger");
 const closeIcon= document.querySelector(".closeIcon");
 const menuIcon = document.querySelector(".menuIcon");
@@ -42,4 +42,61 @@ document.addEventListener("DOMContentLoaded", function() {
             menu.classList.toggle("hidden2"); // Alterna la clase hidden
         });
     }
+}); */
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Verificar y agregar eventos para el formulario de avisos
+    const mostrarFormularioBtn = document.getElementById("mostarFormulario");
+    const cerrarFormularioBtn = document.getElementById("cerrarForm");
+
+    if (mostrarFormularioBtn) {
+        mostrarFormularioBtn.addEventListener("click", function () {
+            document.getElementById("formularioAvisos").classList.toggle("show");
+        });
+    }
+
+    if (cerrarFormularioBtn) {
+        cerrarFormularioBtn.addEventListener("click", function () {
+            document.getElementById("formularioAvisos").classList.remove("show");
+        });
+    }
+
+    // Código existente para el menú desplegable
+    const botonDesplegar = document.querySelector(".desplegarSesion"); // Selecciona el botón
+    const lista = document.querySelector(".lista"); // Selecciona la lista que queremos mostrar/ocultar
+
+    if (botonDesplegar && lista) {
+        botonDesplegar.addEventListener("click", function () {
+            lista.classList.toggle("hidden"); // Alterna la clase hidden
+        });
+    }
+
+    const hamburger = document.querySelector(".hamburger"); // Selecciona el botón
+    const menu = document.querySelector(".ulMenu"); // Selecciona la lista que queremos mostrar/ocultar
+
+    if (hamburger && menu) {
+        hamburger.addEventListener("click", function () {
+            menu.classList.toggle("hidden2"); // Alterna la clase hidden
+        });
+    }
 });
+
+// Código existente para el carrusel
+const carousel = document.querySelector(".cards");
+if (carousel) {
+    // Para computadoras de escritorio que utilicen mouse para la navegación
+    carousel.addEventListener("wheel", function (event) {
+        if (event.deltaY !== 0) {
+            event.preventDefault(); // Evita el desplazamiento vertical
+            carousel.scrollBy({
+                left: event.deltaY,
+                behavior: "smooth", // Hace el scroll más fluido
+            });
+        }
+    });
+
+    // Para laptops y otros dispositivos con pantallas táctiles
+    carousel.addEventListener("touchmove", function (event) {
+        event.preventDefault(); // Evita el desplazamiento vertical en pantallas táctiles
+    });
+}
