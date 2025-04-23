@@ -8,17 +8,27 @@ const DB_URL = 'mongodb://localhost:27017/Proyecto';
 //Conectamos
 mongoose.connect(DB_URL,{})
 
-    .then(()=>console.log("DB CONECTADA"))
+    .then(()=>console.log("Base de Datos Conectada"))
     .catch(err=>console.log(err))
 
 
 //Schema
-let userSchema = new mongoose.Schema({
-    email:{type:String,required:true,unique:true},
-    password:{type:String,required:true}
-},{versionKey:false});
+const userSchema = new mongoose.Schema({
+    nombre: { type: String, required: true },
+    identificacion: { type: String, required: true },
+    correo: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    password2: { type: String},
+    direccion: { type: String },
+    informacion: { type: String },
+    distrito: { type: String },
+    telefono: { type: String },
+    imagen: { type: String }
+},{versionKey: false});
 
+//Creamos la coleccion 
 //Model
-let user = new mongoose.model('Users',userSchema);
+const user = new mongoose.model('usuarios',userSchema);
+
 
 module.exports = user;
