@@ -1,6 +1,8 @@
 const $inputs = document.querySelectorAll('#formulario input');
 const $formulario = document.getElementById('formulario');
 
+
+
 const datosPersona = {
     email: "persona@gmail.com",
     password: "1jcdhbs/$"

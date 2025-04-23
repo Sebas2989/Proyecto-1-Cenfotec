@@ -2,7 +2,8 @@ const inputPrincipal = document.getElementById('usuario_moni');  // Corregir la 
 const perfiles = document.querySelectorAll('.perfilUnitario');  // Selecciona todos los perfiles con la clase '.perfilUnitario'
 const compararButton = document.getElementById('compararButton_moni');  // Selecciona el botón de búsqueda
 const mensajeCoparando = document.getElementById('formulario__mensaje-sinCoincidencia'); // Seleccionar el mensaje de sin coincidencias
-
+const hamburger = document.querySelector('.hamburger');
+const menu = document.querySelector('.ulMenu');
 
 const compararValores = () => {
     const valorInputPrincipal = inputPrincipal.value.trim().toLowerCase(); // Obtener el valor del input y convertirlo a minúsculas
@@ -18,7 +19,7 @@ const compararValores = () => {
         });
         return; // Salir de la función si no hay texto
     }
-    
+
     // Iterar sobre todos los perfiles y verificar si el texto del input coincide con el nombre del perfil
     perfiles.forEach(perfil => {
         const nombrePerfil = perfil.querySelector('.nombreDescrito').textContent.trim().toLowerCase();  // Obtener el texto del nombre del perfil
@@ -43,6 +44,10 @@ const compararValores = () => {
         mensajeCoparando.classList.remove('mensajes'); // Ocultar el mensaje si hay coincidencias
     }
 };
+
+hamburger.addEventListener('click', () => {
+    menu.classList.toggle('hidden2');
+});
 
 // Agregar el event listener al botón para ejecutar la búsqueda cuando se haga clic
 compararButton.addEventListener('click', compararValores);

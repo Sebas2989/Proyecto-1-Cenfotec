@@ -25,10 +25,10 @@
                     <img src="/img/Logo.png" alt="logo" srcset="" class="logo">
                 </a>
                 <button class="hamburger"><i class="fa-solid fa-bars"></i></button>
-                <ul class="ulMenu hidden2">
+                <ul class="ulMenu hidden2 centrarMenu esconderNecesario">
                     <li class="serviciosMenu fix"><a class="centr" href="/servicios">Servicios</a></li>
                     <li class="serviciosMenu fix"><a href="/denuncias">Denuncias</a></li>
-                    <li class="serviciosMenu fix"><a href="/otros_usuarios">Otros Usuarios</a></li>
+                    <li class="serviciosMenu fix"><a href="#footer">Contactenos</a></li>
                 </ul>
                 <div class="iconosHeader contenedorSesion">
                     <button class="buttonDesplegar desplegarSesion">
@@ -87,51 +87,54 @@
         </nav>
     </header>
     <div class="seccionCentral">
+        <div class="fondo-contenedor"></div>
         <div class="cuerpo-seccion-central">
-            <div>
                 <div class="header-perfil">
                     <img src="img/perfil1.jpg" alt="Perfil" class="imagen-ovalada">
                     <p class="name">Susana Benavides</p>
                 </div>
-                <div class="informacion-personal">
-                    <div class="tag-informacion">
-                        <label class="titulo-info-personal">Identificación: </label>
-                        <p id="cedula" value="cedula">148651075</p>
+                <div class="contenedor-informacion-personal">
+                    <div class="fondo-informacion-personal">
+                        <div class="informacion-personal">
+                            <div class="tag-informacion">
+                                <label class="titulo-info-personal">Identificación: </label>
+                                <p id="cedula" value="cedula">148651075</p>
+                            </div>
+                            <div class="tag-informacion">
+                                <label class="titulo-info-personal">Correo electrónico: </label>
+                                <p id="correo" value="correo">a123@municipalidad.co.cr</p>
+                            </div>
+                            <div class="tag-informacion">
+                                <label class="titulo-info-personal">Teléfono: </label>
+                                <p id="telefono" value="telefono">86308615</p>
+                            </div>
+                            <div class="tag-informacion">
+                                <label class="titulo-info-personal">Cantón: </label>
+                                <p id="canton" value="canton">Montes de Oca</p>
+                            </div>
+                            <div class="tag-informacion">
+                                <label class="titulo-info-personal">Distrito: </label>
+                                <p id="distrito" value="distrito">San Pedro</p>
+                            </div>
+                            <div class="direccion tag-informacion">
+                                <label class="titulo-info-personal">Dirección: </label>
+                                <p id="direccion" value="direccion">500 m al Este de la UCR</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="tag-informacion">
-                        <label class="titulo-info-personal">Correo electrónico: </label>
-                        <p id="correo" value="correo">a123@municipalidad.co.cr</p>
-                    </div>
-                    <div class="tag-informacion">
-                        <label class="titulo-info-personal">Teléfono: </label>
-                        <p id="telefono" value="telefono">86308615</p>
-                    </div>
-                    <div class="tag-informacion">
-                        <label class="titulo-info-personal">Cantón: </label>
-                        <p id="canton" value="canton">Montes de Oca</p>
-                    </div>
-                    <div class="tag-informacion">
-                        <label class="titulo-info-personal">Distrito: </label>
-                        <p id="distrito" value="distrito">San Pedro</p>
-                    </div>
-                    <div class="direccion">
-                        <label class="titulo-info-personal">Dirección: </label>
-                        <p id="direccion" value="direccion">500 m al Este de la UCR</p>
+                    <div class="botonesEliminar">
+                        <a href="#" class="liEditar">Editar</a>
                     </div>
                 </div>
-                <div class="botonesEliminar">
-                    <a href="#" class="liEditar">Editar</a>
-                </div>
-            </div>
         </div>
     </div>
     <footer>
         <div class="padreFooter" id="footer">
             <div class="hijosFooter1"><img src="/img/Logo_footer.png" alt="logo" srcset="" class="logoFooter"></div>
             <div class="hijosFooter2">
-                <ul class="ulMenu menuFooter">
-                    <li class="serviciosMenu fix"><a href="/servicios">Servicios</a></li>
-                    <li class="serviciosMenu fix"><a href="/denuncias">Denuncias</a></li>
+                <ul class="ulMenu menuFooter" id="footerUsuario">
+                    <li class="serviciosMenu fix"><a href="/Servicios.html">Servicios</a></li>
+                    <li class="serviciosMenu fix"><a href="/Denuncias.html">Denuncias</a></li>
                     <li class="serviciosMenu fix"><a href="#">Contactenos</a></li>
                 </ul>
             </div>
@@ -145,6 +148,7 @@
     <script src="js/Inicio_Sesion.js" defer></script>
     <script src="js/Header.js" defer></script>
     <script src="js/Usuario1.js"></script>
+    <script src="js/Perfil.js"></script>
 </body>
 
 </html>
