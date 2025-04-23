@@ -7,7 +7,6 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const router = express.Router();
-const multer = require('multer');
 //INICIALIZAR EL SERVER
 
 const app = express();
@@ -64,7 +63,7 @@ app.use(express.static(path.join(__dirname,'public')));
 
 
 //subir imagenes denuncias
-const storage = multer.diskStorage({
+/* const storage = multer.diskStorage({
     destination: (req, file, cb) => {
       // Usar una ruta absoluta con __dirname
       cb(null, path.join(__dirname, 'public/img'));
@@ -75,7 +74,7 @@ const storage = multer.diskStorage({
   });
   
   const upload = multer({ storage: storage });
-
+ */
 
 //Rutas
 app.set('views',path.join(__dirname, 'views'));
