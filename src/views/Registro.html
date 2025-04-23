@@ -24,7 +24,7 @@
                     <img src="/img/Logo.png" alt="logo" srcset="" class="logo">
                 </a>
                 <button class="hamburger"><i class="fa-solid fa-bars"></i></button>
-                <ul class="ulMenu hidden2">
+                <ul class="ulMenu hidden2 esconderNecesario">
                     <li class="serviciosMenu fix"><a class="centr" href="/servicios">Servicios</a></li>
                     <li class="serviciosMenu fix"><a href="/denuncias">Denuncias</a></li>
                     <li class="serviciosMenu fix"><a href="#footer">Contactenos</a></li>
@@ -38,7 +38,7 @@
                         <div id="sesiones" class="sesiones">
                             <div class="contenedor-izquierdo">
                                 <p id="titulo_formulario">¿Ya tienes cuenta?<br>Escribe tus datos aquí</p>
-                                <form action=# id="formulario">
+                                <form action=/authenticateIniciosesion method="post" id="formulario">
                                     <div class="formulario__grupo" id="grupo__email">
                                         <label class="formulario__label" for="email">Correo Electrónico</label>
                                         <div class="formulario__grupo-input">
@@ -88,7 +88,7 @@
     <body>
         <main class="contenedor_padre2">
             <p id="titulo_formulario_moni">Registrarse</p>
-            <form action=# id="formulario_moni">
+            <form method="post" action="/register" id="formulario_moni" enctype="multipart/form-data">
     
                 <div class="formulario__grupo" id="grupo__nombre2">
                     <label class="formulario__label" for="nombre">Nombre Completo</label>
@@ -182,12 +182,20 @@
                         Acepta mínimo 8 digitos y máximo 11 dígitos
                     </p>
                 </div>
-    
+                <div class="formulario__grupo" id="grupo__imagen2">
+                    <label class="formulario__label" for="imagen">Subir Imagen</label>
+                    <div class="formulario__grupo-input">
+                        <i class='bx bxs-image'></i>
+                        <input type="file" class="formulario__input" name="imagen_moni" id="imagen2" accept="image/*">
+                    </div>
+                    <p class="formulario__input-error">Debe subir una imagen válida</p>
+                </div>
+                     
                 <div class="formulario__grupo formulario__grupo-btn-enviar">
                     <div class="formulario__button">
                         <i class='bx bxs-lock-alt'></i>
-                        <!-- <input type="submit" value="Registrarse" class="formulario__btn button_submit"> -->
-                        <button class="formulario__btn button_submit" type="submit">Enviar</button>
+                        <input type="submit" value="Registrarse" class="formulario__btn button_submit">
+                        <!-- <button class="formulario__btn button_submit" type="submit">Enviar</button> -->
                     </div>
                 </div>
     

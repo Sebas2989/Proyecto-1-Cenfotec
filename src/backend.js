@@ -4,7 +4,7 @@ console.log("Vamos con todo, este proyecto se saca")
 // Requerir módulos al inicio
 
 const express = require('express');
-
+const multer = require('multer');
 const path = require('path');
 const router = express.Router();
 const multer = require('multer');
@@ -28,6 +28,31 @@ app.use(bodyParser.urlencoded({extended:false}));
     "categoryColor": "value"
 }
 */
+
+// Configuración de multer
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, 'public', 'img')); // Carpeta donde se guardarán las imágenes
+    },
+    filename: (req, file, cb) => {
+        cb(null, req.body.email_moni + '-' + file.originalname); // Prefijo con el correo del usuario
+    }
+});
+
+const upload = multer({ storage: storage });
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+//Express-session
+const session = require('express-session');
+
+app.use(session({
+    secret: 'mi_secreto_seguro', // Cambia esto por una cadena segura
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Usa `true` si estás en HTTPS
+}));
 
 
 
@@ -61,11 +86,27 @@ app.get('/landing_page',(req, res) =>{
     res.render("landing page.html");
 });
 
+ app.get('/', (req, res) => {
+    const userRole = req.session.userRole || null; 
+    res.render('Avisos-consejo', { role: userRole });
+}); 
 
-app.get('/',(req, res) =>{
-    res.render("Avisos-consejo.html");
+
+app.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error("Error al cerrar sesión:", err);
+            return res.status(500).send("Error al cerrar sesión");
+        }
+        res.redirect('/');
+        console.log("Sesión cerrada correctamente");
+    });
 });
 
+/* app.get('/',(req, res) =>{
+    res.render("Avisos-consejo.ejs");
+});
+ */
 
 app.get('/servicios',(req, res) =>{
     res.render("Servicios.html");
@@ -188,43 +229,86 @@ app.get('/otros_usuarios',(req, res) =>{
     res.render("Otros_Usuarios.html");
 });
 
-
 const user = require('../models/users.js');
+
+
+//Registro formulario
+app.post('/register', upload.single('imagen_moni'), async (req, res) => {
+    try {
+        // Verificar si el correo ya existe en la base de datos
+        const correoExistente = await user.findOne({ correo: req.body.email_moni });
+        if (correoExistente) {
+            console.log("El correo ya está registrado");
+            return res.status(400).send("El correo ya está registrado. Intente con otro.");
+        }
+
+        // Crear un nuevo usuario
+        let data = new user({
+            nombre: req.body.nombre_moni,
+            identificacion: req.body.identificacion_moni,
+            correo: req.body.email_moni,
+            password: req.body.password_moni,
+            password2: req.body.password2,
+            direccion: req.body.direccion_moni,
+            informacion: req.body.informacion_moni,
+            distrito: req.body.distrito_moni,
+            telefono: req.body.telefono_moni,
+            imagen: req.file.filename,
+            rol: 'usuario'
+        });
+
+        // Guardar el usuario en la base de datos
+        await data.save();
+        console.log("Usuario creado");
+        res.redirect('/'); // Redirigir a la página principal o donde desees
+    } catch (err) {
+        console.log("ERROR", err);
+        res.status(500).send("Ocurrió un error al registrar el usuario.");
+    }
+});
+
 
 
 //Inicio sesion formulario
 
-app.post('/authenticateIniciosesion',(req,res)=>{
+app.post('/autenticarinicio', async (req, res) => {
+    try {
+        // Paso 1: Obtener los datos del formulario
+        const datos = {
+            email: req.body.email,
+            password: req.body.password
+        };
 
-    //Paso 1: ocupamos obtener los datos
+        // Paso 2: Verificar si el usuario existe
+        const usuario = await user.findOne({ correo: datos.email });
 
-    let datos= {
-        email:req.body.email,
-        password:req.body.password
-    }
-    
-    const existeUsuario= async()=>{
-        //Paso2: Verificar si el usuario existe
-        const usuario = await user.findOne({correo:datos.email});
-        //usuario ---- Si /datos   -   --- No/ null
-
-        if(usuario!==null){
-            //Paso3: Verificar si la contraseña del usuario coincide con la de DB
-            if(usuario.password===datos.password){
+        if (usuario) {
+            // Paso 3: Verificar si la contraseña coincide
+            if (usuario.password === datos.password) {
                 console.log("El usuario pudo ingresar");
-                res.redirect('/');
-            }else{
+                console.log("Usuario autenticado:", usuario.rol);
+
+                // Guardar el rol del usuario en la sesión
+                req.session.userRole = usuario.rol;
+
+                // Redirigir según el rol
+                if (usuario.rol === 'admin') {
+                    res.redirect('/'); // AGREGAR ACA LA PAGINA DEL ADMIN
+                } else {
+                    res.redirect('/'); // Página para usuarios normales
+                }
+            } else {
                 console.log("La contraseña es incorrecta");
-                res.redirect('/registro');
+                res.redirect('/');
             }
-        }else{
+        } else {
             console.log("El usuario no está registrado");
             res.redirect('/registro');
         }
-        
+    } catch (err) {
+        console.error("Error al autenticar el usuario:", err);
+        res.status(500).send("Ocurrió un error al autenticar el usuario.");
     }
+});
 
-    existeUsuario();
-})
 
-//

@@ -1,6 +1,8 @@
 const $inputs = document.querySelectorAll('#formulario input');
 const $formulario = document.getElementById('formulario');
 
+
+
 const datosPersona = {
     email: "persona@gmail.com",
     password: "1jcdhbs/$"
@@ -60,8 +62,6 @@ $formulario.addEventListener("submit", (e) => {
     } else {
         document.getElementById("formulario__mensaje").classList.remove("formulario__mensaje-activo");
         console.log("Se ingresó correctamente");
-        setTimeout(()=>{
-            location.reload();
-        },4000);
+        $formulario.submit(); // Esto envía el formulario al servidor
     }
 });

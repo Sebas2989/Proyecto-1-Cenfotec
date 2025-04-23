@@ -13,12 +13,23 @@ mongoose.connect(DB_URL,{})
 
 
 //Schema
-let userSchema = new mongoose.Schema({
-    email:{type:String,required:true,unique:true},
-    password:{type:String,required:true}
-},{versionKey:false});
+const userSchema = new mongoose.Schema({
+    nombre: { type: String, required: true },
+    identificacion: { type: String, required: true },
+    correo: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    password2: { type: String},
+    direccion: { type: String },
+    informacion: { type: String },
+    distrito: { type: String },
+    telefono: { type: String },
+    imagen: { type: String },
+    rol: { type: String, default: 'usuario' }
+},{versionKey: false});
 
+//Creamos la coleccion 
 //Model
-let user = new mongoose.model('Users',userSchema);
+const user = new mongoose.model('usuarios',userSchema);
+
 
 module.exports = user;

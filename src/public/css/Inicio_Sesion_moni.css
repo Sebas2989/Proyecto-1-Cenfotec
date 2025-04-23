@@ -72,6 +72,23 @@ p {
     display: inline-block;
 }
 
+.formulario__buttonn {
+    padding: 5px;
+    background-color: #50B1F0;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    width: auto;
+    display: inline-block;
+}
+
+.formulario__buttonn:hover {
+    background-color: black;
+    opacity: 0.8;
+}
+
 .formulario__button:hover {
     background-color: black;
     opacity: 0.8;
