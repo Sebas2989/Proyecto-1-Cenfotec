@@ -34,7 +34,8 @@ const storage = multer.diskStorage({
         cb(null, path.join(__dirname, 'public', 'img')); // Carpeta donde se guardarán las imágenes
     },
     filename: (req, file, cb) => {
-        cb(null, req.body.email_moni + '-' + file.originalname); // Prefijo con el correo del usuario
+        const userEmail = req.session.userEmail;
+        cb(null, `${userEmail}-${file.originalname}`); // Prefijo con el correo del usuario
     }
 });
 
@@ -62,20 +63,6 @@ app.use(express.static(path.join(__dirname,'public')));
 
 
 
-//subir imagenes denuncias
-/* const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      // Usar una ruta absoluta con __dirname
-      cb(null, path.join(__dirname, 'public/img'));
-    },
-    filename: (req, file, cb) => {
-      cb(null, Date.now() + '-' + file.originalname);
-    }
-  });
-  
-  const upload = multer({ storage: storage });
- */
-
 //Rutas
 app.set('views',path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
@@ -87,8 +74,9 @@ app.get('/landing_page',(req, res) =>{
 
  app.get('/', (req, res) => {
     const userRole = req.session.userRole || null; 
-    res.render('Avisos-consejo', { role: userRole });
+    res.render("Avisos-consejo.ejs", { role: userRole });
 }); 
+
 
 
 app.get('/logout', (req, res) => {
@@ -102,92 +90,21 @@ app.get('/logout', (req, res) => {
     });
 });
 
-/* app.get('/',(req, res) =>{
-    res.render("Avisos-consejo.ejs");
-});
- */
 
 app.get('/servicios',(req, res) =>{
-    res.render("Servicios.html");
+    const userRole = req.session.userRole || null; 
+    res.render("Servicios.ejs", { role: userRole });
 });
 
 
-app.get('/correo_enviado',(req, res) =>{
+/* app.get('/correo_enviado',(req, res) =>{
     res.render("Correo_enviado.html");
 });
 
 
-
-const denunciaModel = require('../models/denuncias');
-
-
-app.route('/denuncias')
-
-.get(async(req, res) => {
-// optener datos de db
-const denuncias = require("../models/denuncias.js");
-const lsitaDenuncias = await denuncias.find();
-
-// console.log(lsitaDenuncias); 
-// eviar datos a pantalla
-    res.render("denuncias.ejs", {lsitaDenuncias:lsitaDenuncias});
-  })
-  
-  
-  .post(upload.array('imagenes_jean', 5), async (req, res) => {
-
-    try {
-      
-
-const rutasImagenes = Array.isArray(req.files)? req.files.map(file => '/img/' + file.filename) : [];
-
-
-      const denuncia = new denunciaModel({
-        asunto: req.body.denunciaNombre_jean,
-        fecha: req.body.fechaDenuncia_jean,
-        comentarios: req.body.comentarios_jean,
-        imagenes: rutasImagenes
-      });
-
-      const savedDenuncia = await denuncia.save(); //cambiar luego
-      await denuncia.save();
-      
-      res.redirect('/denuncias');
-      console.log(savedDenuncia)
-    } catch (err) {
-      console.log(err);
-      
-    }
-  });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.get('/inicio_sesion',(req, res) =>{
     res.render("Inicio_Sesion.html");
-});
+}); */
 
 
 app.get('/noticias',(req, res) =>{
@@ -196,12 +113,14 @@ app.get('/noticias',(req, res) =>{
 
 
 app.get('/otros_usuarios',(req, res) =>{
-    res.render("Otros_Usuarios.html");
+    const userRole = req.session.userRole || null; 
+    res.render("Otros_Usuarios.ejs", { role: userRole });
 });
 
 
 app.get('/perfil',(req, res) =>{
-    res.render("Perfil.html");
+    const userRole = req.session.userRole || null; 
+    res.render("Perfil.ejs", { role: userRole });
 });
 
 
@@ -221,12 +140,10 @@ app.get('/recuperacion_contra_2',(req, res) =>{
 
 
 app.get('/usuario1',(req, res) =>{
-    res.render("Usuario1.html");
+    const userRole = req.session.userRole || null; 
+    res.render("Usuario1.ejs", { role: userRole });
 });
 
-app.get('/otros_usuarios',(req, res) =>{
-    res.render("Otros_Usuarios.html");
-});
 
 const user = require('../models/users.js');
 
@@ -289,6 +206,7 @@ app.post('/autenticarinicio', async (req, res) => {
 
                 // Guardar el rol del usuario en la sesión
                 req.session.userRole = usuario.rol;
+                req.session.userEmail = usuario.correo;
 
                 // Redirigir según el rol
                 if (usuario.rol === 'admin') {
@@ -307,6 +225,61 @@ app.post('/autenticarinicio', async (req, res) => {
     } catch (err) {
         console.error("Error al autenticar el usuario:", err);
         res.status(500).send("Ocurrió un error al autenticar el usuario.");
+    }
+});
+
+
+// Denuncias
+const denunciaModel = require('../models/denuncias');
+
+// Ruta GET para obtener las denuncias
+app.get('/denuncias', async (req, res) => {
+    try {
+        const userEmail = req.session.userEmail;
+        const userRole = req.session.userRole || null; 
+
+        let listaDenuncias;
+
+        // Si el usuario es admin, mostrar todas las denuncias
+        if (userRole === 'admin') {
+            listaDenuncias = await denunciaModel.find(); // Obtener todas las denuncias
+        } else {
+            // Si no es admin, mostrar solo las denuncias del usuario logueado
+            listaDenuncias = await denunciaModel.find({ correo: userEmail });
+        }
+
+        res.render('denuncias.ejs', { role: userRole, listaDenuncias: listaDenuncias });
+    } catch (err) {
+        console.error("Error al obtener las denuncias:", err);
+        res.status(500).send("Error al obtener las denuncias.");
+    }
+});
+
+// Ruta POST para crear una denuncia
+app.post('/denuncias', upload.array('imagenes_jean', 5), async (req, res) => {
+    try {
+        const userEmail = req.session.userEmail;
+        // Extraer los nombres de los archivos subidos
+        const rutasImagenes = Array.isArray(req.files)
+            ? req.files.map(file => `${userEmail}-${file.originalname}`) 
+            : [];
+
+        // Crear una nueva denuncia
+        const denuncia = new denunciaModel({
+            correo:userEmail,         
+            asunto: req.body.denunciaNombre_jean,
+            fecha: req.body.fechaDenuncia_jean,
+            comentarios: req.body.comentarios_jean,
+            imagenes: rutasImagenes,   
+        });
+
+        // Guardar la denuncia en la base de datos
+        const savedDenuncia = await denuncia.save();
+        res.redirect('/denuncias');
+        console.log("Denuncia creada:", savedDenuncia);
+    } catch (err) {
+        console.error("Error al guardar la denuncia:", err);
+        res.status(500).send("Ocurrió un error al guardar la denuncia.");
     }
 });
 
