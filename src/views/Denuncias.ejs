@@ -6,6 +6,16 @@
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/header_footer.css"> 
+    
+    <link rel="stylesheet" href="css/Inicio_Sesion_moni.css">
+    <link rel="stylesheet" href="css/denunciasjean.css">
+
+
+    
+   
+   
+    <link rel="stylesheet" href="css/Botones.css">
+     
     <!-- <link rel="stylesheet" href="css/denuncias_jean.css">  -->
     <!-- <link rel="stylesheet" href="css/Inicio_Sesion_moni.css"> -->
     <!-- <link rel="stylesheet" href="css/Botones.css"> -->
@@ -85,59 +95,98 @@
     <!-- Sección Denuncias -->
     <div class="denuncias fix_jean">
         <h1>Denuncias</h1>
-
+        
         <!-- Botón para mostrar el formulario -->
         <button class="boton_jean" onclick="mostrarFormulario()">Nueva Denuncia</button>
 
         <!-- Formulario Nueva Denuncia -->
         <div class="nuevaDenunciaForm_jean hide_jean" id="nuevaDenunciaForm_jean">
-            <form class="forma_jean" onsubmit="event.preventDefault(); validarFormulario();">
+            <form class="forma_jean"  action="/denuncias"   method="post"  enctype="multipart/form-data" >
                 <label for="denunciaNombre_jean">Asunto:</label>
                 <input type="text" id="denunciaNombre_jean" name="denunciaNombre_jean" required><br>
 
-                <label for="fechaDenuncia_jean">Fecha de la denuncia:</label>
+                <label for="fechaDenuncia_jean">Fecha en la que occurrio el suceso:</label>
                 <input type="date" id="fechaDenuncia_jean" name="fechaDenuncia_jean" required><br>
 
                 <label for="comentarios_jean">Comentarios:</label>
                 <textarea id="comentarios_jean" name="comentarios_jean" rows="4" required></textarea><br>
 
                 <label for="fotos_jean">Adjuntar fotos:</label>
-                <input type="file" name="fotos_jean"><br>
+                <input type="file" name="imagenes_jean" multiple><br>
 
                 <button type="button" class="btnCancelar_jean" onclick="cerrarFormulario()">Cancelar</button>
-                <button type="button" class="btnPublicar_jean" onclick="validarFormulario()">Publicar Denuncia</button>
+                <button type="submit" class="btnPublicar_jean" >Publicar Denuncia</button>
             </form>
         </div>
 
         <!-- Tabla de Denuncias -->
         <table class="tableDenuncias_jean show_jean">
             <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre Denuncia</th>
-                    <th>Fecha Denuncia</th>
-                    <th>Fecha Suceso</th>
-                    <th>Estado</th>
-                </tr>
+              <tr>
+                <th>ID</th>
+                <th>Nombre Denuncia</th>
+                <th>Fecha Denuncia</th>
+                <th>Fecha Suceso</th>
+                <th>Estado</th>
+              </tr>
             </thead>
             <tbody>
+              <% lsitaDenuncias.forEach(denuncias => { %>
                 <tr>
-                    <td>1</td>
-                    <td>Denuncia 1</td>
-                    <td>2025-03-22</td>
-                    <td>2025-03-21</td>
-                    <td>Activa</td>
+                  <td 
+                    class="idDenuncia"
+                    data-id="<%= denuncias._id %>"
+                    data-asunto="<%= denuncias.asunto %>"
+                    data-fecha="<%= denuncias.fecha.toLocaleDateString('es-ES') %>"
+                    data-fecha-creacion="<%= denuncias.fechaCreacion.toLocaleDateString('es-ES') %>"
+                    data-estado="<%= denuncias.status %>"
+                    data-imagenes='<%= JSON.stringify(denuncias.imagenes || []) %>'
+                  >
+                    <%= denuncias._id %>
+                  </td>
+                  <td><%= denuncias.asunto %></td>
+                  <td><%= denuncias.fecha.toLocaleDateString('es-ES') %></td>
+                  <td><%= denuncias.fechaCreacion.toLocaleDateString('es-ES') %></td>
+                  <td><%= denuncias.status %></td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Denuncia 2</td>
-                    <td>2025-03-21</td>
-                    <td>2025-03-20</td>
-                    <td>Cerrada</td>
-                </tr>
+              <% }) %>
             </tbody>
-        </table>
-    </div>
+          </table>
+          
+          <!-- Modal (puede ir al final del body) -->
+          <div id="miModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <div class="modal-body">
+                <div class="modal-info">
+                  <p><strong>ID:</strong> <span id="modalId"></span></p>
+                  <p><strong>Asunto:</strong> <span id="modalAsunto"></span></p>
+                  <p><strong>Fecha denuncia:</strong> <span id="modalFecha"></span></p>
+                  <p><strong>Fecha suceso:</strong> <span id="modalFechaSuceso"></span></p>
+                  <p><strong>Estado actual:</strong> <span id="modalEstado"></span></p>
+                </div>
+                <div class="modal-imagenes" id="modalImagenes"></div>
+              </div>
+          
+              <form id="modalForm">
+                <label for="estadoSelect">Cambiar estado:</label>
+                <select id="estadoSelect" name="estado">
+                  <option value="pendiente">Pendiente</option>
+                  <option value="resuelto">Resuelto</option>
+                </select>
+          
+                <br><br>
+          
+                <label for="comentario">Comentario:</label><br>
+                <textarea id="comentario" name="comentario" rows="3" style="width: 100%"></textarea>
+          
+                <br><br>
+          
+                <button type="submit">Guardar cambios</button>
+              </form>
+            </div>
+          </div>
+   
 
     <!-- Footer -->
     <footer>
@@ -158,5 +207,7 @@
         </div>
     </footer>
     <script src="js/denuncia.js" defer></script> 
+    <script src="js/Inicio_Sesion.js" defer></script>
+    <script src="js/Header.js" defer></script>
 </body>
 </html>

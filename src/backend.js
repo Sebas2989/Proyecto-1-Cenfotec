@@ -6,7 +6,8 @@ console.log("Vamos con todo, este proyecto se saca")
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-
+const router = express.Router();
+const multer = require('multer');
 //INICIALIZAR EL SERVER
 
 const app = express();
@@ -60,6 +61,22 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname,'public')));
 
+
+
+//subir imagenes denuncias
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      // Usar una ruta absoluta con __dirname
+      cb(null, path.join(__dirname, 'public/img'));
+    },
+    filename: (req, file, cb) => {
+      cb(null, Date.now() + '-' + file.originalname);
+    }
+  });
+  
+  const upload = multer({ storage: storage });
+
+
 //Rutas
 app.set('views',path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
@@ -101,9 +118,72 @@ app.get('/correo_enviado',(req, res) =>{
 });
 
 
-app.get('/denuncias',(req, res) =>{
-    res.render("Denuncias.html");
-});
+
+const denunciaModel = require('../models/denuncias');
+
+
+app.route('/denuncias')
+
+.get(async(req, res) => {
+// optener datos de db
+const denuncias = require("../models/denuncias.js");
+const lsitaDenuncias = await denuncias.find();
+
+// console.log(lsitaDenuncias); 
+// eviar datos a pantalla
+    res.render("denuncias.ejs", {lsitaDenuncias:lsitaDenuncias});
+  })
+  
+  
+  .post(upload.array('imagenes_jean', 5), async (req, res) => {
+
+    try {
+      
+
+const rutasImagenes = Array.isArray(req.files)? req.files.map(file => '/img/' + file.filename) : [];
+
+
+      const denuncia = new denunciaModel({
+        asunto: req.body.denunciaNombre_jean,
+        fecha: req.body.fechaDenuncia_jean,
+        comentarios: req.body.comentarios_jean,
+        imagenes: rutasImagenes
+      });
+
+      const savedDenuncia = await denuncia.save(); //cambiar luego
+      await denuncia.save();
+      
+      res.redirect('/denuncias');
+      console.log(savedDenuncia)
+    } catch (err) {
+      console.log(err);
+      
+    }
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 app.get('/inicio_sesion',(req, res) =>{
@@ -230,3 +310,5 @@ app.post('/autenticarinicio', async (req, res) => {
         res.status(500).send("Ocurrió un error al autenticar el usuario.");
     }
 });
+
+
