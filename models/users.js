@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 //Definimos donde se conectara
-const DB_URL = 'mongodb://localhost:27017/Proyecto';
+const DB_URL = 'mongodb://localhost:27017/proyectoFinalI2025';
 
 //Conectamos
 mongoose.connect(DB_URL,{})

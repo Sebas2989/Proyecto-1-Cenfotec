@@ -12,7 +12,7 @@ const router = express.Router();
 const app = express();
 
 app.listen(201, () =>{
-    console.log("Server en puerto",201);
+    console.log("Server en puerto", 201); 
 });
 
 
@@ -111,19 +111,6 @@ app.get('/noticias',(req, res) =>{
     res.render("Noticias.html");
 });
 
-
-app.get('/otros_usuarios',(req, res) =>{
-    const userRole = req.session.userRole || null; 
-    res.render("Otros_Usuarios.ejs", { role: userRole });
-});
-
-
-app.get('/perfil',(req, res) =>{
-    const userRole = req.session.userRole || null; 
-    res.render("Perfil.ejs", { role: userRole });
-});
-
-
 app.get('/registro',(req, res) =>{
     res.render("Registro.html");
 });
@@ -138,10 +125,42 @@ app.get('/recuperacion_contra_2',(req, res) =>{
     res.render("RecuperacionContra2.html");
 });
 
+app.get('/otros_usuarios',async(req, res) =>{
+    //Paso 1: Obtener los datos
+    const userRole = req.session.userRole || null;
+    const usuarios = require('../models/users.js');
+    //Paso 2: Enviar esos datos a mostrarse en pantalla
+    const listaUsuarios = await usuarios.find();
+    res.render("Otros_Usuarios.ejs", { role: userRole,listaUsuarios:listaUsuarios });
+});
 
-app.get('/usuario1',(req, res) =>{
-    const userRole = req.session.userRole || null; 
-    res.render("Usuario1.ejs", { role: userRole });
+app.get('/usuario/:identificacion', async (req, res) => {
+    const usuarios = require('../models/users.js');
+    const userRole = req.session.userRole || null;
+    const identificacionUsuario = decodeURIComponent(req.params.identificacion) || null;
+    const denunciaModel = require('../models/denuncias');
+
+    const infoUsuario = await usuarios.findOne({ identificacion: identificacionUsuario }) || null;
+    
+    if (!infoUsuario) {
+        return res.status(404).send("Usuario no encontrado");
+    }
+
+    const listaDenuncias = await denunciaModel.find({ identificacion: identificacionUsuario }) || [];
+
+    res.render("Usuario1.ejs", { 
+        role: userRole, 
+        infoUsuario: infoUsuario, 
+        listaDenuncias: listaDenuncias
+    });
+});
+
+app.get('/perfil',async(req, res) =>{
+    const usuarios = require('../models/users.js');
+    const userRole = req.session.userRole || null;
+    const idPerfil = req.session.userIdentificacion || null;
+    const infoPerfil = await usuarios.findOne({identificacion:idPerfil}) || null; 
+    res.render("Perfil.ejs", { role: userRole, infoPerfil: infoPerfil });
 });
 
 
@@ -184,6 +203,38 @@ app.post('/register', upload.single('imagen_moni'), async (req, res) => {
 });
 
 
+//Modificar user
+
+app.post('/guardar-perfil', upload.single('imagen_nueva'), async (req, res) => {
+    try {
+        const { nombre, correo, telefono, direccion, distrito } = req.body;
+        const idPerfil = req.session.userIdentificacion || null;  
+        const usuario = await user.findOne({ identificacion: idPerfil });
+
+        if (!usuario) {
+            return res.status(404).send("Usuario no encontrado");
+        }
+
+        usuario.nombre = nombre || usuario.nombre;
+        usuario.correo = correo || usuario.correo;
+        usuario.telefono = telefono || usuario.telefono;
+        usuario.direccion = direccion || usuario.direccion;
+        usuario.distrito = distrito || usuario.distrito;
+
+        if (req.file) {
+            usuario.imagen = req.session.userEmail + '-' + req.file.originalname;
+        }
+
+        await usuario.save();
+        res.redirect('/perfil');
+
+    } catch (err) {
+        console.error("Error al guardar el perfil:", err);
+        res.status(500).send("Ocurrió un error al actualizar el perfil");
+    }
+});
+
+
 
 //Inicio sesion formulario
 
@@ -207,6 +258,7 @@ app.post('/autenticarinicio', async (req, res) => {
                 // Guardar el rol del usuario en la sesión
                 req.session.userRole = usuario.rol;
                 req.session.userEmail = usuario.correo;
+                req.session.userIdentificacion = usuario.identificacion;
 
                 // Redirigir según el rol
                 if (usuario.rol === 'admin') {
@@ -236,7 +288,9 @@ const denunciaModel = require('../models/denuncias');
 app.get('/denuncias', async (req, res) => {
     try {
         const userEmail = req.session.userEmail;
-        const userRole = req.session.userRole || null; 
+        const userRole = req.session.userRole || null;
+        const usuario = await user.findOne({ correo: userEmail });
+        const id = usuario.identificacion;
 
         let listaDenuncias;
 
@@ -258,19 +312,26 @@ app.get('/denuncias', async (req, res) => {
 // Ruta POST para crear una denuncia
 app.post('/denuncias', upload.array('imagenes_jean', 5), async (req, res) => {
     try {
+        // Verifica si se han subido imágenes
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).send("No se han subido imágenes.");
+        }
+
         const userEmail = req.session.userEmail;
-        // Extraer los nombres de los archivos subidos
-        const rutasImagenes = Array.isArray(req.files)
-            ? req.files.map(file => `${userEmail}-${file.originalname}`) 
-            : [];
+        const userRole = req.session.userRole || null;
+        const usuario = await user.findOne({ correo: userEmail });
+        const id = usuario.identificacion;
+
+        // Extraer los nombres de los archivos subidos y agregar el correo como prefijo
+        const rutasImagenes = req.files.map(file => `${userEmail}-${file.originalname}`);
 
         // Crear una nueva denuncia
         const denuncia = new denunciaModel({
-            correo:userEmail,         
+            identificacion: id,
             asunto: req.body.denunciaNombre_jean,
             fecha: req.body.fechaDenuncia_jean,
             comentarios: req.body.comentarios_jean,
-            imagenes: rutasImagenes,   
+            imagenes: rutasImagenes, // Almacenar las rutas de las imágenes
         });
 
         // Guardar la denuncia en la base de datos
@@ -283,4 +344,49 @@ app.post('/denuncias', upload.array('imagenes_jean', 5), async (req, res) => {
     }
 });
 
+app.post('/eliminarUsuario/:identificacion', async (req, res) => {
+    const id = req.params.identificacion;
+    const usuarios = require('../models/users.js');
+
+    try {
+        const usuario = await usuarios.findOne({ identificacion: id });
+        await usuarios.findOneAndDelete({ identificacion: id });
+
+        if (!usuario) {
+            return res.status(404).send('Usuario no encontrado');
+        }
+
+        res.redirect('/otros_usuarios');
+    } catch (error) {
+        console.error('Error al eliminar usuario:', error);
+        res.status(500).send('Error interno al eliminar usuario');
+    }
+});
+
+app.post('/editarUsuario/:identificacion', async (req, res) => {
+    const id = req.params.identificacion;
+    const { identificacion, correo, telefono, distrito, direccion } = req.body;
+    const usuarios = require('../models/users.js');
+
+    try {
+        const usuario = await usuarios.findOne({ identificacion: id });
+
+        if (!usuario) {
+            return res.status(404).send('Usuario no encontrado');
+        }
+
+        usuario.identificacion = identificacion || usuario.identificacion;
+        usuario.correo = correo || usuario.correo;
+        usuario.telefono = telefono || usuario.telefono;
+        usuario.distrito = distrito || usuario.distrito;
+        usuario.direccion = direccion || usuario.direccion;
+
+        await usuario.save(); 
+
+        res.redirect(`/usuario/${id}`);
+    } catch (error) {
+        console.error('Error al editar usuario:', error);
+        res.status(500).send('Error interno al editar usuario');
+    }
+});
 

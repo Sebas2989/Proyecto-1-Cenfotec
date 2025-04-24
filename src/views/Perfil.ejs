@@ -106,45 +106,49 @@
     </header>
     <div class="seccionCentral">
         <div class="fondo-contenedor"></div>
+        <form id="form-editar-perfil" action="/guardar-perfil" method="POST" enctype="multipart/form-data">
         <div class="cuerpo-seccion-central">
                 <div class="header-perfil">
-                    <img src="img/perfil1.jpg" alt="Perfil" class="imagen-ovalada">
-                    <p class="name">Susana Benavides</p>
+                    <div id="contenedor-imagen">
+                        <img id="imagen-actual" src="img/<%= infoPerfil.imagen %>" alt="Imagen de perfil" class="imagen-ovalada">
+                        <input type="file" name="imagen_nueva" id="imagen-nueva" accept="image/*" style="display: none;">                    </div>
+                    <p class="name" id="name" data-field="nombre"><%= infoPerfil.nombre %></p>
                 </div>
                 <div class="contenedor-informacion-personal">
                     <div class="fondo-informacion-personal">
                         <div class="informacion-personal">
-                            <div class="tag-informacion">
-                                <label class="titulo-info-personal">Identificación: </label>
-                                <p id="cedula" value="cedula">148651075</p>
+                                <div class="tag-informacion">
+                                    <label class="titulo-info-personal">Identificación: </label>
+                                    <p id="cedula" data-field="identificacion"><%= infoPerfil.identificacion %></p>
+                                </div>
+                                <div class="tag-informacion">
+                                    <label class="titulo-info-personal">Correo electrónico: </label>
+                                    <p id="correo" data-field="correo"><%= infoPerfil.correo %></p>
+                                </div>
+                                <div class="tag-informacion">
+                                    <label class="titulo-info-personal">Teléfono: </label>
+                                    <p id="telefono" data-field="telefono"><%= infoPerfil.telefono %></p>
+                                </div>
+                                <div class="tag-informacion">
+                                    <label class="titulo-info-personal">Cantón: </label>
+                                    <p id="canton" value="canton">San Pedro</p>
+                                </div>
+                                <div class="tag-informacion">
+                                    <label class="titulo-info-personal">Distrito: </label>
+                                    <p id="distrito" data-field="distrito"><%= infoPerfil.distrito %></p>
+                                </div>
+                                <div class="direccion tag-informacion">
+                                    <label class="titulo-info-personal">Dirección: </label>
+                                    <p id="direccion" data-field="direccion"><%= infoPerfil.direccion %></p>
+                                </div>
                             </div>
-                            <div class="tag-informacion">
-                                <label class="titulo-info-personal">Correo electrónico: </label>
-                                <p id="correo" value="correo">a123@municipalidad.co.cr</p>
-                            </div>
-                            <div class="tag-informacion">
-                                <label class="titulo-info-personal">Teléfono: </label>
-                                <p id="telefono" value="telefono">86308615</p>
-                            </div>
-                            <div class="tag-informacion">
-                                <label class="titulo-info-personal">Cantón: </label>
-                                <p id="canton" value="canton">Montes de Oca</p>
-                            </div>
-                            <div class="tag-informacion">
-                                <label class="titulo-info-personal">Distrito: </label>
-                                <p id="distrito" value="distrito">San Pedro</p>
-                            </div>
-                            <div class="direccion tag-informacion">
-                                <label class="titulo-info-personal">Dirección: </label>
-                                <p id="direccion" value="direccion">500 m al Este de la UCR</p>
-                            </div>
-                        </div>
+                            
                     </div>
-                    <div class="botonesEliminar">
-                        <a href="#" class="liEditar">Editar</a>
-                    </div>
+                    <button class="botonesEliminar" id="boton-editar-perfil" type="button">Editar</button>
+                
                 </div>
         </div>
+    </form>
     </div>
     <footer>
         <div class="padreFooter" id="footer">

@@ -1,54 +1,68 @@
+// Selección de elementos
 const contenedores = document.querySelectorAll('.contenedor-imagen');
-
 const selectDenuncia = document.getElementById('denuncia-usuario');
-
-const hamburger = document.querySelector('.hamburger');
-const menu = document.querySelector('.ulMenu');
-
 const denuncias = document.querySelectorAll('.denuncia-individual');
 
-hamburger.addEventListener('click', () => {
-    menu.classList.toggle('hidden2');
-});
-
+// Manejo de carrusel de imágenes
 contenedores.forEach((contenedor) => {
-    const imagen = contenedor.querySelector('.imagen-denuncia');
-    const imagenes = contenedor.getAttribute('data-images') ? contenedor.getAttribute('data-images').split(',') : []; // Obtenemos las imágenes de 'data-images' como array (con comprobación de existencia)
-    let currentImageIndex = 0;
+    const imagen = contenedor.querySelector('img'); // ← Selecciona la imagen real, no por clase
+    const imagenesData = contenedor.getAttribute('data-images');
 
-    if (imagenes.length === 0) {
-        console.warn('El contenedor no tiene imágenes asociadas');
+    if (!imagen || !imagenesData) {
+        console.warn('Falta imagen o data-images en el contenedor', contenedor);
         return;
     }
 
+    const imagenes = imagenesData.split(',');
+    let currentImageIndex = 0;
+
     contenedor.addEventListener('click', function () {
-        currentImageIndex = (currentImageIndex + 1) % imagenes.length; // Incrementa y vuelve a 0 al llegar al final
-        imagen.src = imagenes[currentImageIndex];
+        currentImageIndex = (currentImageIndex + 1) % imagenes.length;
+        imagen.src = `/img/${imagenes[currentImageIndex]}`; // Ajusta la ruta si es necesario
     });
 
     contenedor.addEventListener('contextmenu', function (e) {
         e.preventDefault();
-        currentImageIndex = (currentImageIndex - 1 + imagenes.length) % imagenes.length; // Decrementa y vuelve al final si llega a 0
-        imagen.src = imagenes[currentImageIndex];
+        currentImageIndex = (currentImageIndex - 1 + imagenes.length) % imagenes.length;
+        imagen.src = `/img/${imagenes[currentImageIndex]}`;
     });
 });
 
+// Filtro por denuncias
 selectDenuncia.addEventListener('change', function () {
-    denuncias.forEach(denuncia => {
-        denuncia.classList.add('oculto');
-        denuncia.classList.remove('mostrar');
-    });
-
     const seleccionada = selectDenuncia.value;
 
-    if (seleccionada == "Todas") {
-        denuncias.forEach(denuncia => {
-            denuncia.classList.remove('oculto');
-            denuncia.classList.add('mostrar');
-        });
-    } else {
-        const denunciaSeleccionada = document.getElementById(`denuncia-usuario${selectDenuncia.selectedIndex}`);
-        denunciaSeleccionada.classList.remove('oculto');
-        denunciaSeleccionada.classList.add('mostrar');
-    }
+    denuncias.forEach(denuncia => {
+        const esSeleccionada = (seleccionada === "Todas") || (denuncia.id === seleccionada);
+        denuncia.classList.toggle('mostrar', esSeleccionada);
+        denuncia.classList.toggle('oculto', !esSeleccionada);
+    });
+});
+
+// Asegurarse de que el documento está completamente cargado antes de ejecutar
+document.addEventListener('DOMContentLoaded', () => {
+    const botonEditar = document.getElementById('editar-boton');
+    const botonGuardar = document.getElementById('guardar-boton');
+    
+    const camposTexto = document.querySelectorAll('.campo-editar');
+    const camposInput = document.querySelectorAll('#form-editar-usuario input');
+    
+    botonEditar.addEventListener('click', () => {
+        camposTexto.forEach(campo => campo.style.display = 'none');
+        camposInput.forEach(input => input.style.display = 'inline-block');
+        
+        botonEditar.style.display = 'none';
+        botonGuardar.style.display = 'inline-block';
+    });
+
+    botonGuardar.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevenir el envío inmediato del formulario
+        botonGuardar.disabled = true;  // Deshabilitar el botón "Guardar" para evitar múltiples envíos
+        botonGuardar.innerHTML = 'Guardando...'; // Cambiar el texto del botón para indicar que se está guardando
+
+        // Envía el formulario después de un pequeño retraso (por ejemplo, 500ms)
+        setTimeout(() => {
+            document.getElementById('form-editar-usuario').submit();  // Enviar formulario
+        }, 500);
+    });
 });
