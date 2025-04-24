@@ -248,36 +248,7 @@ app.post('/guardar-perfil', upload.single('imagen_nueva'), async (req, res) => {
 //Avisos formulario
 const Aviso = require('../models/avisos.js');
 const Noticia = require('../models/noticias.js');
-//Modificar user
 
-app.post('/guardar-perfil', upload.single('imagen_nueva'), async (req, res) => {
-    try {
-        const { nombre, correo, telefono, direccion, distrito } = req.body;
-        const idPerfil = req.session.userIdentificacion || null;  
-        const usuario = await user.findOne({ identificacion: idPerfil });
-
-        if (!usuario) {
-            return res.status(404).send("Usuario no encontrado");
-        }
-
-        usuario.nombre = nombre || usuario.nombre;
-        usuario.correo = correo || usuario.correo;
-        usuario.telefono = telefono || usuario.telefono;
-        usuario.direccion = direccion || usuario.direccion;
-        usuario.distrito = distrito || usuario.distrito;
-
-        if (req.file) {
-            usuario.imagen = req.session.userEmail + '-' + req.file.originalname;
-        }
-
-        await usuario.save();
-        res.redirect('/perfil');
-
-    } catch (err) {
-        console.error("Error al guardar el perfil:", err);
-        res.status(500).send("Ocurrió un error al actualizar el perfil");
-    }
-});
 app.post('/avisos', async (req, res) => {
     try {
         // Crear un nuevo usuario
@@ -330,6 +301,9 @@ app.get('/', async (req, res) => {
         res.status(500).send("Error al cargar la página principal");
     }
 });
+
+
+
 //Inicio sesion formulario As
 
 app.post('/autenticarinicio', async (req, res) => {
@@ -377,6 +351,8 @@ app.post('/autenticarinicio', async (req, res) => {
 
 // Denuncias
 const denunciaModel = require('../models/denuncias');
+
+
 
 // Ruta GET para obtener las denuncias
 app.get('/denuncias', async (req, res) => {

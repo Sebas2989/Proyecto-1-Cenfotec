@@ -84,6 +84,9 @@ p {
     display: inline-block;
 }
 
+.formulario__buttonn1{
+    margin-left: 130px;
+}
 .formulario__buttonn:hover {
     background-color: black;
     opacity: 0.8;
