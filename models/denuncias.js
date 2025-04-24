@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 // Esquema denuncia
 const denunciasSchema = new mongoose.Schema({
+  correo: { type: String, required: true },
   identificacion: { type: String, required: true },
   asunto: { type: String, required: true },
   fecha: { type: Date, required: true },

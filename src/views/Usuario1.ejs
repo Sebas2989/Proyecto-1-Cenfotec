@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <link rel="stylesheet" href="/css/Usuario1_moni.css">
-    <link rel="stylesheet" href="/css/header_footer.css">
     <link rel="stylesheet" href="css/Inicio_Sesion_moni.css">
+    <link rel="stylesheet" href="/css/header_footer.css">
+    <link rel="stylesheet" href="/css/Usuario1_moni.css">
     <link rel="stylesheet" href="css/Botones.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -98,7 +98,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <% } %>
+                        <% } %>
                 </div>
             </div>
         </nav>
@@ -189,7 +189,7 @@
                         <option value="Todas"> Todas </option>
                         <% listaDenuncias.forEach(function(denuncia, index) { %>
                             <option value="denuncia-usuario<%= index + 1 %>">
-                                <%= denuncia.fecha %> (<%= denuncia.asunto %>)
+                                <%= denuncia.asunto %>---<%= new Date(denuncia.fecha).toLocaleDateString('es-ES', { dateStyle: 'full' }) %> 
                             </option>
                             <% }); %>
                     </select>
@@ -198,11 +198,11 @@
                     <% listaDenuncias.forEach(function(denuncia, index) { %>
                         <div class="denuncia-individual" id="denuncia-usuario<%= index + 1 %>">
                             <div class="desc-denuncia">
-                                <h3 class="fecha-denuncia">
-                                    <%= denuncia.fecha %>
-                                </h3>
-                                <h3 class="asunto-denuncia">
+                                <h1 class="asunto-denuncia">
                                     <%= denuncia.asunto %>
+                                </h1>
+                                <h3 class="fecha-denuncia">
+                                    <%= new Date(denuncia.fecha).toLocaleDateString('es-ES', { dateStyle: 'full' }) %>
                                 </h3>
                                 <p class="prosa-denuncia">
                                     <%= denuncia.comentarios %>

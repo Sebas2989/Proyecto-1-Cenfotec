@@ -5,14 +5,12 @@ const mongoose = require('mongoose');
 //Definimos donde se conectara
 const DB_URL = 'mongodb://localhost:27017/Proyecto';
 
-//Conectamos
-mongoose.connect(DB_URL,{})
-    .catch(err=>console.log(err))
 //Schema
 const noticiasSchema = new mongoose.Schema({
     nombreNoticia: { type: String, required: true },
     fechaPublicacion: { type: String, required: true },
     contenidoNoticia: { type: String, required: true },
+    imagen: { type: String, required: false }
 },{versionKey: false});
 
 //Creamos la coleccion 

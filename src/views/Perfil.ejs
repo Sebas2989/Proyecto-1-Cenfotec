@@ -107,49 +107,49 @@
     <div class="seccionCentral">
         <div class="fondo-contenedor"></div>
         <form id="form-editar-perfil" action="/guardar-perfil" method="POST" enctype="multipart/form-data">
-        <div class="cuerpo-seccion-central">
-                <div class="header-perfil">
-                    <div id="contenedor-imagen">
-                        <img id="imagen-actual" src="img/<%= infoPerfil.imagen %>" alt="Imagen de perfil" class="imagen-ovalada">
-                        <input type="file" name="imagen_nueva" id="imagen-nueva" accept="image/*" style="display: none;">                    </div>
-                    <p class="name" id="name" data-field="nombre"><%= infoPerfil.nombre %></p>
-                </div>
-                <div class="contenedor-informacion-personal">
-                    <div class="fondo-informacion-personal">
-                        <div class="informacion-personal">
-                                <div class="tag-informacion">
-                                    <label class="titulo-info-personal">Identificación: </label>
-                                    <p id="cedula" data-field="identificacion"><%= infoPerfil.identificacion %></p>
-                                </div>
-                                <div class="tag-informacion">
-                                    <label class="titulo-info-personal">Correo electrónico: </label>
-                                    <p id="correo" data-field="correo"><%= infoPerfil.correo %></p>
-                                </div>
-                                <div class="tag-informacion">
-                                    <label class="titulo-info-personal">Teléfono: </label>
-                                    <p id="telefono" data-field="telefono"><%= infoPerfil.telefono %></p>
-                                </div>
-                                <div class="tag-informacion">
-                                    <label class="titulo-info-personal">Cantón: </label>
-                                    <p id="canton" value="canton">San Pedro</p>
-                                </div>
-                                <div class="tag-informacion">
-                                    <label class="titulo-info-personal">Distrito: </label>
-                                    <p id="distrito" data-field="distrito"><%= infoPerfil.distrito %></p>
-                                </div>
-                                <div class="direccion tag-informacion">
-                                    <label class="titulo-info-personal">Dirección: </label>
-                                    <p id="direccion" data-field="direccion"><%= infoPerfil.direccion %></p>
-                                </div>
-                            </div>
-                            
+            <div class="cuerpo-seccion-central">
+                    <div class="header-perfil">
+                        <div id="contenedor-imagen">
+                            <img id="imagen-actual" src="img/<%= infoPerfil.imagen %>" alt="Imagen de perfil" class="imagen-ovalada">
+                            <input type="file" name="imagen_nueva" id="imagen-nueva" accept="image/*" style="display: none;">                    </div>
+                        <p class="name" id="name" data-field="nombre"><%= infoPerfil.nombre %></p>
                     </div>
-                    <button class="botonesEliminar" id="boton-editar-perfil" type="button">Editar</button>
-                
-                </div>
+                    <div class="contenedor-informacion-personal">
+                        <div class="fondo-informacion-personal">
+                            <div class="informacion-personal">
+                                    <div class="tag-informacion">
+                                        <label class="titulo-info-personal">Identificación: </label>
+                                        <p id="cedula" data-field="identificacion"><%= infoPerfil.identificacion %></p>
+                                    </div>
+                                    <div class="tag-informacion">
+                                        <label class="titulo-info-personal">Correo electrónico: </label>
+                                        <p id="correo" data-field="correo"><%= infoPerfil.correo %></p>
+                                    </div>
+                                    <div class="tag-informacion">
+                                        <label class="titulo-info-personal">Teléfono: </label>
+                                        <p id="telefono" data-field="telefono"><%= infoPerfil.telefono %></p>
+                                    </div>
+                                    <div class="tag-informacion">
+                                        <label class="titulo-info-personal">Cantón: </label>
+                                        <p id="canton" value="canton">San Pedro</p>
+                                    </div>
+                                    <div class="tag-informacion">
+                                        <label class="titulo-info-personal">Distrito: </label>
+                                        <p id="distrito" data-field="distrito"><%= infoPerfil.distrito %></p>
+                                    </div>
+                                    <div class="direccion tag-informacion">
+                                        <label class="titulo-info-personal">Dirección: </label>
+                                        <p id="direccion" data-field="direccion"><%= infoPerfil.direccion %></p>
+                                    </div>
+                                </div>
+                                
+                        </div>
+                        <button class="botonesEliminar" id="boton-editar-perfil" type="button">Editar</button>
+                    
+                    </div>
+            </div>
+        </form>
         </div>
-    </form>
-    </div>
     <footer>
         <div class="padreFooter" id="footer">
             <div class="hijosFooter1"><img src="/img/Logo_footer.png" alt="logo" srcset="" class="logoFooter"></div>

@@ -97,6 +97,7 @@
         </nav>
     </header>
     <div class="noticias">
+        <% if (role === 'admin') { %>
                 <!-- Checkbox oculto -->
                 <input type="checkbox" id="checkbox_formulario" style="display: none;">
             
@@ -104,7 +105,7 @@
                 <label for="checkbox_formulario" class ="boton_noticia">Crear Noticia</label>
         
                 <div class="formulario_noticia">
-                    <form id="formNoticia" method="post" action="/noticias">
+                    <form id="formNoticia" method="post" action="/noticias" enctype="multipart/form-data">
                         <label for="nombreNoticia">Nombre de la Noticia:</label>
                         <input type="text" name="tituloNoticias" required><br><br>
                         
@@ -113,21 +114,25 @@
                         
                         <label for="contenidoNoticia">Contenido de la Noticia:</label><br>
                         <textarea rows="4" cols="50" name="contenidoNoticias" required></textarea><br><br>
+
+                        <label for="imagenNoticia">Subir Imagen:</label>
+                        <input type="file" name="imagenNoticia" class="imagenNoticiaaa" required><br><br>
                         
                         <button type="submit">Publicar</button>
                     </form>
-                </div>        
+                </div>    
+        <% } %>
+                
         <div>
             <h1>Noticias año 2025</h1>
             <% if (noticias && noticias.length > 0) { %>
                 <% noticias.forEach(noticia => { %>
                     <div class="noticia">
-                        <img class="imgNoticias" src="/img/campanas_recoleccion.png" alt="">
+                        <img class="imgNoticias" src="<%= noticia.imagen %>" alt="">
                         <div class="noticia_info">
                             <h1><%= noticia.nombreNoticia %></h1>
                             <h2><%= noticia.fechaPublicacion %></h2>
                             <p class="espacio"><%= noticia.contenidoNoticia %></p>
-                            <a class="espacio" href="/noticias.html">Leer más...</a>
                         </div>
                     </div>
                 <% }) %>

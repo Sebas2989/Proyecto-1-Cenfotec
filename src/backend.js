@@ -7,6 +7,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const router = express.Router();
+
 //INICIALIZAR EL SERVER
 
 const app = express();
@@ -31,15 +32,27 @@ app.use(bodyParser.urlencoded({extended:false}));
 // Configuración de multer
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, 'public', 'img')); // Carpeta donde se guardarán las imágenes
+        cb(null, path.join(__dirname, 'public', 'img'));
     },
     filename: (req, file, cb) => {
-        const userEmail = req.session.userEmail;
-        cb(null, `${userEmail}-${file.originalname}`); // Prefijo con el correo del usuario
+        cb(null, `${req.body.email_moni}-${file.originalname}`); // Usar req.body.email_moni
+    }
+});
+const upload = multer({ storage: storage });
+
+
+
+const storageDen = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, 'public', 'img'));
+    },
+    filename: (req, file, cb) => {
+        const userEmail = req.session.userEmail || 'anonimo';
+        cb(null, `${userEmail}-${file.originalname}`); // Usar req.session.userEmail
     }
 });
 
-const upload = multer({ storage: storage });
+const uploadDen = multer({ storage: storageDen});
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -48,10 +61,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 const session = require('express-session');
 
 app.use(session({
-    secret: 'mi_secreto_seguro', // Cambia esto por una cadena segura
+    secret: 'dsadasdsad', // Cambia esto por una cadena segura
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Usa `true` si estás en HTTPS
+    cookie: {
+        secure: false, 
+        maxAge: 24 * 60 * 60 * 1000 
+    }
 }));
 
 
@@ -92,58 +108,8 @@ app.get('/servicios',(req, res) =>{
 /* app.get('/correo_enviado',(req, res) =>{
     res.render("Correo_enviado.html");
 });
+*/
 
-
-
-const denunciaModel = require('../models/denuncias');
-
-
-app.route('/denuncias')
-
-.get(async(req, res) => {
-// optener datos de db
-const denuncias = require("../models/denuncias.js");
-const lsitaDenuncias = await denuncias.find();
-
-// console.log(lsitaDenuncias); 
-// eviar datos a pantalla
-    res.render("denuncias.ejs", {lsitaDenuncias:lsitaDenuncias});
-  })
-  
-  
-  .post(upload.array('imagenes_jean', 5), async (req, res) => {
-
-    try {
-      
-
-const rutasImagenes = Array.isArray(req.files)? req.files.map(file => '/img/' + file.filename) : [];
-
-
-      const denuncia = new denunciaModel({
-        asunto: req.body.denunciaNombre_jean,
-        fecha: req.body.fechaDenuncia_jean,
-        comentarios: req.body.comentarios_jean,
-        imagenes: rutasImagenes
-      });
-
-      const savedDenuncia = await denuncia.save(); //cambiar luego
-      await denuncia.save();
-      
-      res.redirect('/denuncias');
-      console.log(savedDenuncia)
-    } catch (err) {
-      console.log(err);
-      
-    }
-  });
-
-
-
-=======
->>>>>>> 7f215021f8c0c47d40325f4411e436a2f0bf1b17
-app.get('/inicio_sesion',(req, res) =>{
-    res.render("Inicio_Sesion.html");
-}); */
 
 
 app.get('/noticias',(req, res) =>{
@@ -209,6 +175,12 @@ const user = require('../models/users.js');
 //Registro formulario
 app.post('/register', upload.single('imagen_moni'), async (req, res) => {
     try {
+        const identificacionExistente = await user.findOne({ identificacion: req.body.identificacion_moni});
+        if (identificacionExistente) {
+            console.log("La identifiacion ya está usada");
+            return res.status(400).send("El correo ya está registrado. Intente con otro.");
+        }
+
         // Verificar si el correo ya existe en la base de datos
         const correoExistente = await user.findOne({ correo: req.body.email_moni });
         if (correoExistente) {
@@ -323,13 +295,15 @@ app.post('/avisos', async (req, res) => {
         res.status(500).send("Ocurrió un error al registrar el usuario.");
     }
 });
-app.post('/noticias', async (req, res) => {
+app.post('/noticias', uploadDen.single('imagenNoticia'), async (req, res) => {
     try {
-        // Crear un nuevo usuario
+
+        
         let noticiasObjt = new Noticia({
             nombreNoticia: req.body.tituloNoticias,
             fechaPublicacion: req.body.fechaNoticias,
             contenidoNoticia: req.body.contenidoNoticias,
+            imagen: req.file.filename,
         });
 
         // Guardar el aviso
@@ -411,7 +385,6 @@ app.get('/denuncias', async (req, res) => {
         const userRole = req.session.userRole || null;
         const usuario = await user.findOne({ correo: userEmail });
         const id = usuario.identificacion;
-
         let listaDenuncias;
 
         // Si el usuario es admin, mostrar todas las denuncias
@@ -430,23 +403,25 @@ app.get('/denuncias', async (req, res) => {
 });
 
 // Ruta POST para crear una denuncia
-app.post('/denuncias', upload.array('imagenes_jean', 5), async (req, res) => {
+app.post('/denuncias', uploadDen.array('imagenes_jean', 5), async (req, res) => {
     try {
         // Verifica si se han subido imágenes
         if (!req.files || req.files.length === 0) {
             return res.status(400).send("No se han subido imágenes.");
         }
+        console.log(req.session.userEmail);
 
         const userEmail = req.session.userEmail;
-        const userRole = req.session.userRole || null;
-        const usuario = await user.findOne({ correo: userEmail });
-        const id = usuario.identificacion;
+        /* const userRole = req.session.userRole || null;
+        const usuario = await user.findOne({ correo: userEmail }); */
+        const id = req.session.userIdentificacion;
 
         // Extraer los nombres de los archivos subidos y agregar el correo como prefijo
         const rutasImagenes = req.files.map(file => `${userEmail}-${file.originalname}`);
 
         // Crear una nueva denuncia
         const denuncia = new denunciaModel({
+            correo: userEmail,
             identificacion: id,
             asunto: req.body.denunciaNombre_jean,
             fecha: req.body.fechaDenuncia_jean,
