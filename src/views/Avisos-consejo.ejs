@@ -165,7 +165,8 @@
                                 </div>
                             </li>
                             <% } %>
-                            <% avisos.forEach(aviso => { %>
+                            <% if (avisos && avisos.length > 0) { %>
+                                <% avisos.forEach(aviso => { %>
                                 <li class="card">
                                     <div class="card-content">
                                         <div class="iconoMas animacionBordes carousel">
@@ -187,7 +188,10 @@
                                         </div>
                                     </div>
                                 </li>
-                            <% }) %>
+                                <% }) %>
+                            <% } else { %>
+                                <p>No hay avisos publicados por el momento.</p>
+                            <% } %>
                         </ul>
                     </div>
                 </section>
