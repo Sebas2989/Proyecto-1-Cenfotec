@@ -17,14 +17,14 @@
     <title>Registro Usuario</title>
 </head>
 <body>
-     <header>
+    <header>
         <nav>
             <div class="menu">
                 <a href="/" class="a-order">
                     <img src="/img/Logo.png" alt="logo" srcset="" class="logo">
                 </a>
                 <button class="hamburger"><i class="fa-solid fa-bars"></i></button>
-                <ul class="ulMenu hidden2 esconderNecesario">
+                <ul class="ulMenu hidden2">
                     <li class="serviciosMenu fix"><a class="centr" href="/servicios">Servicios</a></li>
                     <li class="serviciosMenu fix"><a href="/denuncias">Denuncias</a></li>
                     <li class="serviciosMenu fix"><a href="#footer">Contactenos</a></li>
@@ -32,13 +32,12 @@
                 <div class="iconosHeader contenedorSesion">
                     <button class="buttonDesplegar desplegarSesion">
                         <i class="fa-solid fa-circle-user"></i>
-                        <i class="fa-solid fa-angle-up"></i>
                     </button>
                     <div class="lista hidden contenedor_padre">
                         <div id="sesiones" class="sesiones">
                             <div class="contenedor-izquierdo">
                                 <p id="titulo_formulario">¿Ya tienes cuenta?<br>Escribe tus datos aquí</p>
-                                <form action=/authenticateIniciosesion method="post" id="formulario">
+                                <form action=/autenticarinicio method="post" id="formulario">
                                     <div class="formulario__grupo" id="grupo__email">
                                         <label class="formulario__label" for="email">Correo Electrónico</label>
                                         <div class="formulario__grupo-input">
@@ -59,7 +58,7 @@
                                     <div class="formulario__grupo formulario__grupo-btn-enviar">
                                         <div class="formulario__button">
                                             <i class='bx bxs-lock-alt'></i>
-                                            <a class="fix2" href="/perfil"><input  type="" value="Ingresar a cuenta" class="formulario__btn button_submit"></a> 
+                                            <input  type="submit" value="Ingresar a cuenta" class="formulario__btn button_submit">
                                         </div>
                                     </div>
                                     <p>o</p>
