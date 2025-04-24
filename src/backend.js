@@ -84,13 +84,6 @@ app.set('view engine', 'ejs');
 app.get('/landing_page',(req, res) =>{
     res.render("landing page.html");
 });
-
- app.get('/', (req, res) => {
-    const userRole = req.session.userRole || null; 
-    res.render('Avisos-consejo', { role: userRole });
-}); 
-
-
 app.get('/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) {
@@ -159,29 +152,6 @@ const rutasImagenes = Array.isArray(req.files)? req.files.map(file => '/img/' + 
       
     }
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -266,9 +236,62 @@ app.post('/register', upload.single('imagen_moni'), async (req, res) => {
     }
 });
 
+//Avisos formulario
+const Aviso = require('../models/avisos.js');
+const Noticia = require('../models/noticias.js');
 
+app.post('/avisos', async (req, res) => {
+    try {
+        // Crear un nuevo usuario
+        let avisosObjt = new Aviso({
+            avisosTitulo: req.body.tituloAvisos,
+            avisosFecha: req.body.fechaAvisos,
+            avisosContenido: req.body.contenidoAvisos,
+        });
 
-//Inicio sesion formulario
+        // Guardar el aviso
+        await avisosObjt.save();
+        console.log("Aviso subido");
+        res.redirect('/'); // Redirigir a la página principal o donde desees
+    } catch (err) {
+        console.log("ERROR", err);
+        res.status(500).send("Ocurrió un error al registrar el usuario.");
+    }
+});
+app.post('/noticias', async (req, res) => {
+    try {
+        // Crear un nuevo usuario
+        let noticiasObjt = new Noticia({
+            nombreNoticia: req.body.tituloNoticias,
+            fechaPublicacion: req.body.fechaNoticias,
+            contenidoNoticia: req.body.contenidoNoticias,
+        });
+
+        // Guardar el aviso
+        await noticiasObjt.save();
+        console.log("Noticia subido");
+        res.redirect('/'); // Redirigir a la página principal o donde desees
+    } catch (err) {
+        console.log("ERROR", err);
+        res.status(500).send("Ocurrió un error al registrar el usuario.");
+    }
+});
+app.get('/', async (req, res) => {
+    try {
+        const userRole = req.session.userRole || null; 
+
+        const [avisos, noticias] = await Promise.all([
+            Aviso.find({}),
+            Noticia.find({})
+        ]);
+
+        res.render('Avisos-consejo', { avisos, noticias, role: userRole });
+    } catch (err) {
+        console.log("Error al obtener datos:", err);
+        res.status(500).send("Error al cargar la página principal");
+    }
+});
+//Inicio sesion formulario As
 
 app.post('/autenticarinicio', async (req, res) => {
     try {
@@ -309,5 +332,3 @@ app.post('/autenticarinicio', async (req, res) => {
         res.status(500).send("Ocurrió un error al autenticar el usuario.");
     }
 });
-
-

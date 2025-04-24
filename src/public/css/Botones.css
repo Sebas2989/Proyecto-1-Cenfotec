@@ -1,23 +1,29 @@
 .carouselcontainer{
     width: 100%;
 }
-.carousel{
-    transition: .75s;
-} 
-.carousel a{
+.carousel .icono h3{
     width: 100%;
     height: 100%;
-    padding-top: 200px;
-    color: rgba(252, 252, 252, 0.94);
+    padding-top: 150px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.94);
+    transition: ease .7s;
+}
+.carousel:hover .icono h3{
+    transform: scale(1.020); /* (10% de zoom, !!Recordatorio!! Si el zoom es mas grande que el viewport puede salirse Atte: Taylor) */
+    transition: ease .7s;
+    color: rgba(254, 254, 254, 0.678);
+    opacity: 0;
 }
 .carousel:hover .hide{
     display: relative;
-    justify-content: left;
-    align-items: left;
-    text-align: left;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: start;
     height: 15rem;
     width: 100%;
-    transform: scale(1.010); /* (10% de zoom, !!Recordatorio!! Si el zoom es mas grande que el viewport puede salirse Atte: Taylor) */
+    transform: scale(1.020); /* (10% de zoom, !!Recordatorio!! Si el zoom es mas grande que el viewport puede salirse Atte: Taylor) */
+    transition: ease .7s;
     color: rgba(254, 254, 254, 0.678);
     opacity: 1;
     background-size: cover;
@@ -48,43 +54,37 @@
     background-size: cover;
 }
 .carousel:hover .inHide{
-    justify-content: left;
-    align-items: left;
-    text-align: left;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: start;
     width: 100%;
-    height: 100%;
-    margin-top: 0px;
+    height: 5%;
+    margin: 10px 0 0 10px;
     padding-top: 0px;
-    padding-bottom: 190px;
+    padding-bottom: 5%;
     color: rgba(255, 255, 255, 0.678);
     font-size: .9rem;
 }
 .carousel:hover .inHide2{
     width: 100%;
-    height: 100%;
-    margin-top: -150px;
+    margin: -40px 1px 0px 10px;
     padding-top: 0px;
-    padding-bottom: 200px;
+    padding-bottom: 0rem;
     color: rgba(255, 255, 255, 0.678);
-    font-size: 1.15rem;
+    font-size: 1.05rem;
 }
 .carousel{
     display: block;
     position: relative;
-    justify-content: center;
-    align-items: center;
-    padding-left: 0px;
     height: 15rem;
     width: 100%;
     border-radius: 15px;
     font-size: 1.6rem;
-    padding: 0px;
     border: none;
     outline: none;
     cursor: pointer;
     transition: .5s;
     overflow: hidden;
-    margin-left: 0px;
 }
 .zoom1-carousel{
     background: linear-gradient(rgba(5, 7, 12, 0.378),rgba(5, 7, 12, 0.194)), url("/img/Section4-Fachadas.jpg") no-repeat center center;
@@ -119,7 +119,6 @@
     right: 0px;
     z-index: 1;
     opacity: 0;
-    padding: 2rem 1.3rem 2rem 2rem;
 }
 .animacionBordes{
     border-radius: 15px;
@@ -205,13 +204,17 @@
     padding: .3em 0 0 .3em;
 }
 .icono i{
-    background-color: #edf2f4;
+    background-color: #edf2f400;
+    margin-left: 45%;
     display: block;
     border-radius: 15px;
     width: 100%;
     padding: 6.75rem 0px;
     top: 50;
     cursor: pointer;
+}
+.fa-newspaper{
+    position: absolute;
 }
 #formularioAvisos{
     display: block;
