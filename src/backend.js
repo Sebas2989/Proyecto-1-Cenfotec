@@ -6,7 +6,7 @@ console.log("Vamos con todo, este proyecto se saca")
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-
+const router = express.Router();
 //INICIALIZAR EL SERVER
 
 const app = express();
@@ -34,7 +34,8 @@ const storage = multer.diskStorage({
         cb(null, path.join(__dirname, 'public', 'img')); // Carpeta donde se guardarán las imágenes
     },
     filename: (req, file, cb) => {
-        cb(null, req.body.email_moni + '-' + file.originalname); // Prefijo con el correo del usuario
+        const userEmail = req.session.userEmail;
+        cb(null, `${userEmail}-${file.originalname}`); // Prefijo con el correo del usuario
     }
 });
 
@@ -42,9 +43,25 @@ const upload = multer({ storage: storage });
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+//Express-session
+const session = require('express-session');
+
+app.use(session({
+    secret: 'mi_secreto_seguro', // Cambia esto por una cadena segura
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Usa `true` si estás en HTTPS
+}));
+
+
+
+
 //ARCHIVOS STATICOS
 
 app.use(express.static(path.join(__dirname,'public')));
+
+
 
 //Rutas
 app.set('views',path.join(__dirname, 'views'));
@@ -55,30 +72,39 @@ app.get('/landing_page',(req, res) =>{
     res.render("landing page.html");
 });
 
+ app.get('/', (req, res) => {
+    const userRole = req.session.userRole || null; 
+    res.render("Avisos-consejo.ejs", { role: userRole });
+}); 
 
-app.get('/',(req, res) =>{
-    res.render("Avisos-consejo.html");
+
+
+app.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error("Error al cerrar sesión:", err);
+            return res.status(500).send("Error al cerrar sesión");
+        }
+        res.redirect('/');
+        console.log("Sesión cerrada correctamente");
+    });
 });
 
 
 app.get('/servicios',(req, res) =>{
-    res.render("Servicios.html");
+    const userRole = req.session.userRole || null; 
+    res.render("Servicios.ejs", { role: userRole });
 });
 
 
-app.get('/correo_enviado',(req, res) =>{
+/* app.get('/correo_enviado',(req, res) =>{
     res.render("Correo_enviado.html");
-});
-
-
-app.get('/denuncias',(req, res) =>{
-    res.render("Denuncias.html");
 });
 
 
 app.get('/inicio_sesion',(req, res) =>{
     res.render("Inicio_Sesion.html");
-});
+}); */
 
 
 app.get('/noticias',(req, res) =>{
@@ -87,12 +113,14 @@ app.get('/noticias',(req, res) =>{
 
 
 app.get('/otros_usuarios',(req, res) =>{
-    res.render("Otros_Usuarios.html");
+    const userRole = req.session.userRole || null; 
+    res.render("Otros_Usuarios.ejs", { role: userRole });
 });
 
 
 app.get('/perfil',(req, res) =>{
-    res.render("Perfil.html");
+    const userRole = req.session.userRole || null; 
+    res.render("Perfil.ejs", { role: userRole });
 });
 
 
@@ -112,12 +140,10 @@ app.get('/recuperacion_contra_2',(req, res) =>{
 
 
 app.get('/usuario1',(req, res) =>{
-    res.render("Usuario1.html");
+    const userRole = req.session.userRole || null; 
+    res.render("Usuario1.ejs", { role: userRole });
 });
 
-app.get('/otros_usuarios',(req, res) =>{
-    res.render("Otros_Usuarios.html");
-});
 
 const user = require('../models/users.js');
 
@@ -143,7 +169,8 @@ app.post('/register', upload.single('imagen_moni'), async (req, res) => {
             informacion: req.body.informacion_moni,
             distrito: req.body.distrito_moni,
             telefono: req.body.telefono_moni,
-            imagen: req.file.filename
+            imagen: req.file.filename,
+            rol: 'usuario'
         });
 
         // Guardar el usuario en la base de datos
@@ -160,36 +187,100 @@ app.post('/register', upload.single('imagen_moni'), async (req, res) => {
 
 //Inicio sesion formulario
 
- app.post('/autenticarinicio',(req,res)=>{
+app.post('/autenticarinicio', async (req, res) => {
+    try {
+        // Paso 1: Obtener los datos del formulario
+        const datos = {
+            email: req.body.email,
+            password: req.body.password
+        };
 
-    //Paso 1: ocupamos obtener los datos
+        // Paso 2: Verificar si el usuario existe
+        const usuario = await user.findOne({ correo: datos.email });
 
-    let datos= {
-        email:req.body.email,
-        password:req.body.password
-    }
-    
-    const existeUsuario= async()=>{
-        //Paso2: Verificar si el usuario existe
-        const usuario = await user.findOne({correo:datos.email});
-        //usuario ---- Si /datos   -   --- No/ null
-
-        if(usuario!==null){
-            //Paso3: Verificar si la contraseña del usuario coincide con la de DB
-            if(usuario.password===datos.password){
+        if (usuario) {
+            // Paso 3: Verificar si la contraseña coincide
+            if (usuario.password === datos.password) {
                 console.log("El usuario pudo ingresar");
-                res.redirect('/perfil');
-            }else{
+                console.log("Usuario autenticado:", usuario.rol);
+
+                // Guardar el rol del usuario en la sesión
+                req.session.userRole = usuario.rol;
+                req.session.userEmail = usuario.correo;
+
+                // Redirigir según el rol
+                if (usuario.rol === 'admin') {
+                    res.redirect('/'); // AGREGAR ACA LA PAGINA DEL ADMIN
+                } else {
+                    res.redirect('/'); // Página para usuarios normales
+                }
+            } else {
                 console.log("La contraseña es incorrecta");
-                res.redirect('/registro');
+                res.redirect('/');
             }
-        }else{
+        } else {
             console.log("El usuario no está registrado");
             res.redirect('/registro');
         }
-        
+    } catch (err) {
+        console.error("Error al autenticar el usuario:", err);
+        res.status(500).send("Ocurrió un error al autenticar el usuario.");
     }
+});
 
-    existeUsuario();
-})
- 
+
+// Denuncias
+const denunciaModel = require('../models/denuncias');
+
+// Ruta GET para obtener las denuncias
+app.get('/denuncias', async (req, res) => {
+    try {
+        const userEmail = req.session.userEmail;
+        const userRole = req.session.userRole || null; 
+
+        let listaDenuncias;
+
+        // Si el usuario es admin, mostrar todas las denuncias
+        if (userRole === 'admin') {
+            listaDenuncias = await denunciaModel.find(); // Obtener todas las denuncias
+        } else {
+            // Si no es admin, mostrar solo las denuncias del usuario logueado
+            listaDenuncias = await denunciaModel.find({ correo: userEmail });
+        }
+
+        res.render('denuncias.ejs', { role: userRole, listaDenuncias: listaDenuncias });
+    } catch (err) {
+        console.error("Error al obtener las denuncias:", err);
+        res.status(500).send("Error al obtener las denuncias.");
+    }
+});
+
+// Ruta POST para crear una denuncia
+app.post('/denuncias', upload.array('imagenes_jean', 5), async (req, res) => {
+    try {
+        const userEmail = req.session.userEmail;
+        // Extraer los nombres de los archivos subidos
+        const rutasImagenes = Array.isArray(req.files)
+            ? req.files.map(file => `${userEmail}-${file.originalname}`) 
+            : [];
+
+        // Crear una nueva denuncia
+        const denuncia = new denunciaModel({
+            correo:userEmail,         
+            asunto: req.body.denunciaNombre_jean,
+            fecha: req.body.fechaDenuncia_jean,
+            comentarios: req.body.comentarios_jean,
+            imagenes: rutasImagenes,   
+        });
+
+        // Guardar la denuncia en la base de datos
+        const savedDenuncia = await denuncia.save();
+        res.redirect('/denuncias');
+        console.log("Denuncia creada:", savedDenuncia);
+    } catch (err) {
+        console.error("Error al guardar la denuncia:", err);
+        res.status(500).send("Ocurrió un error al guardar la denuncia.");
+    }
+});
+
+

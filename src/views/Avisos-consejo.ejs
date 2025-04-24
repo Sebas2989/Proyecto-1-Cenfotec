@@ -30,9 +30,18 @@
                     <li class="serviciosMenu fix"><a href="#footer">Contactenos</a></li>
                 </ul>
                 <div class="iconosHeader contenedorSesion">
+                    <% if (role) { %>
+                        <a href="/perfil" class="buttonnDesplegar desplegarSesion">
+                            <i class="fa-solid fa-circle-user"></i>
+                        </a> 
+                         <form action="/logout" method="get">
+                            <button class="formulario__buttonn">
+                                <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+                            </button>
+                        </form>
+                    <% } else { %>
                     <button class="buttonDesplegar desplegarSesion">
                         <i class="fa-solid fa-circle-user"></i>
-                        <i class="fa-solid fa-angle-up"></i>
                     </button>
                     <div class="lista hidden contenedor_padre">
                         <div id="sesiones" class="sesiones">
@@ -81,6 +90,7 @@
                             </div>                
                         </div>
                     </div>
+                    <% } %>
                 </div>
             </div>
         </nav>
@@ -126,6 +136,7 @@
                 <section class="container">
                     <div class="incontainer">
                         <ul class="cards">
+                            <% if (role === 'admin') { %>
                             <li class="card">
                                 <div>
                                     <div class="card-content"> 
@@ -142,6 +153,7 @@
                                     </div>
                                 </div>
                             </li>
+                            <% } %>
                             <li class="card">
                                 <div class="card-content">
                                     <button  type="submit" class="zoom1-carousel carousel" name="Insertar" value="ACTUALIZAR">
@@ -233,6 +245,7 @@
                         </ul>
                     </div>
                 </section>
+                <% if (role === 'admin') { %>
                 <div id="formularioAvisos" class="hidden">
                     <button id="cerrarForm" class="buttonCerrar"><i class="fa-solid fa-xmark"></i></button>
                     <h1>Formulario de Avisos</h1>
@@ -249,6 +262,7 @@
                         </div> 
                     </form>
                 </div>
+                <% } %>
         </section>
     </div>
     <footer>

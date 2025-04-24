@@ -1,7 +1,5 @@
 const $inputs2 = document.querySelectorAll('#formulario_moni input');
 const $formulario2 = document.getElementById('formulario_moni');
-const hamburger = document.querySelector('.hamburger');
-const menu = document.querySelector('.ulMenu');
 
 const datosPersona2 = {
     nombre: "Alejandro Rodriguez",
