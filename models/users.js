@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 //Definimos donde se conectara
-const DB_URL = 'mongodb://localhost:27017/proyectoFinalI2025';
+const DB_URL = 'mongodb://localhost:27017/Proyecto';
 
 //Conectamos
 mongoose.connect(DB_URL,{})
@@ -15,7 +15,7 @@ mongoose.connect(DB_URL,{})
 //Schema
 const userSchema = new mongoose.Schema({
     nombre: { type: String, required: true },
-    identificacion: { type: String, required: true },
+    identificacion: { type: String, required: true, unique: true },
     correo: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     password2: { type: String},

@@ -90,6 +90,17 @@ img {
     cursor: pointer;
 }
 
+.imgNoticias{
+
+    width: 25%;
+    height: auto;
+    max-width: 25%;
+    border-radius: 25px;
+    transition: 0.5s;
+    cursor: pointer;
+    background-color: red
+}
+
 img:hover {
     opacity: 0.5;
 }
