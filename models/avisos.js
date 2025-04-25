@@ -10,6 +10,10 @@ const avisosSchema = new mongoose.Schema({
     avisosTitulo: { type: String, required: true },
     avisosFecha: { type: String, required: true },
     avisosContenido: { type: String, required: true },
+    aprobado: {
+        type: Boolean,
+        default: false // Los avisos no están aprobados por defecto
+    }
 },{versionKey: false});
 
 //Creamos la coleccion 

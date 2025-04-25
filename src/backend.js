@@ -260,6 +260,7 @@ app.post('/avisos', async (req, res) => {
             avisosTitulo: req.body.tituloAvisos,
             avisosFecha: req.body.fechaAvisos,
             avisosContenido: req.body.contenidoAvisos,
+            aprobado: false 
         });
         // Guardar el aviso
         await avisosObjt.save();
@@ -279,33 +280,94 @@ app.post('/noticias', uploadDen.single('imagenNoticia'), async (req, res) => {
             fechaPublicacion: req.body.fechaNoticias,
             contenidoNoticia: req.body.contenidoNoticias,
             imagen: req.file.filename,
+            aprobado: false,
         });
 
         // Guardar el aviso
         await noticiasObjt.save();
-        console.log("Noticia subido");
+        console.log("Noticia subida");
         res.redirect('/'); // Redirigir a la página principal o donde desees
     } catch (err) {
         console.log("ERROR", err);
         res.status(500).send("Ocurrió un error al registrar el usuario.");
     }
 });
+
+app.post('/aprobar/:id', async (req, res) => {
+    if (req.session.userRole !== 'admin') {
+        return res.status(403).send("Acceso denegado");
+    }
+
+    try {
+        await Aviso.findByIdAndUpdate(req.params.id, { aprobado: true });
+        res.redirect('/');
+    } catch (err) {
+        console.log("Error al aprobar solicitud:", err);
+        res.status(500).send("Error al aprobar el aviso.");
+    }
+});
+app.post('/aprobar-noticia/:id', async (req, res) => {
+    if (req.session.userRole !== 'admin') {
+        return res.status(403).send("Acceso denegado");
+    }
+
+    try {
+        await Noticia.findByIdAndUpdate(req.params.id, { aprobado: true });
+        res.redirect('/');
+    } catch (err) {
+        console.log("Error al aprobar solicitud de noticia:", err);
+        res.status(500).send("Error al aprobar la noticia.");
+    }
+});
+app.post('/rechazar/:id', async (req, res) => {
+    if (req.session.userRole !== 'admin') {
+        return res.status(403).send("Acceso denegado");
+    }
+
+    try {
+        await Aviso.findByIdAndDelete(req.params.id);
+        res.redirect('/');
+    } catch (err) {
+        console.log("Error al rechazar solicitud:", err);
+        res.status(500).send("Error al rechazar el aviso.");
+    }
+});
+app.post('/rechazar-noticia/:id', async (req, res) => {
+    if (req.session.userRole !== 'admin') {
+        return res.status(403).send("Acceso denegado");
+    }
+
+    try {
+        await Noticia.findByIdAndDelete(req.params.id);
+        res.redirect('/'); 
+    } catch (err) {
+        console.log("Error al rechazar solicitud de noticia:", err);
+        res.status(500).send("Error al rechazar la noticia.");
+    }
+});
 app.get('/', async (req, res) => {
     try {
-        const userRole = req.session.userRole || null; 
+        const userRole = req.session.userRole || null;
 
-        const [avisos, noticias] = await Promise.all([
-            Aviso.find({}),
-            Noticia.find({})
+        const [avisos, noticias, solicitudesAvisos, solicitudesNoticias] = await Promise.all([
+            Aviso.find({ aprobado: true }),
+            Noticia.find({ aprobado: true }),
+            Aviso.find({ aprobado: false }),
+            Noticia.find({ aprobado: false })
         ]);
 
-        res.render('Avisos-consejo', { avisos, noticias, role: userRole });
+        res.render('Avisos-consejo', {
+            avisos,
+            noticias,
+            solicitudesAvisos,
+            solicitudesNoticias,
+            role: userRole
+        });
     } catch (err) {
         console.log("Error al obtener datos:", err);
         res.status(500).send("Error al cargar la página principal");
     }
 });
-
 
 
 //Inicio sesion formulario As
@@ -360,27 +422,29 @@ const denunciaModel = require('../models/denuncias');
 
 // Ruta GET para obtener las denuncias
 app.get('/denuncias', async (req, res) => {
-    try {
-        const userEmail = req.session.userEmail;
-        const userRole = req.session.userRole || null;
-        const usuario = await user.findOne({ correo: userEmail });
-        const id = usuario.identificacion;
-        let listaDenuncias;
-
-        // Si el usuario es admin, mostrar todas las denuncias
-        if (userRole === 'admin') {
-            listaDenuncias = await denunciaModel.find(); // Obtener todas las denuncias
-        } else {
-            // Si no es admin, mostrar solo las denuncias del usuario logueado
-            listaDenuncias = await denunciaModel.find({ correo: userEmail });
+       
+            const userEmail = req.session.userEmail;
+            const userRole = req.session.userRole || null;
+            /* const usuario = await user.findOne({ correo: userEmail }); */
+            /* const id = usuario.identificacion; */
+            let listaDenuncias;
+    
+            // Si el usuario es admin, mostrar todas las denuncias
+            if (userRole === 'admin') {
+                listaDenuncias = await denunciaModel.find(); // Obtener todas las denuncias
+            } else if (userRole === 'usuario') {
+                // Si no es admin, mostrar solo las denuncias del usuario logueado
+                listaDenuncias = await denunciaModel.find({ correo: userEmail });
+                
+            } else {
+                res.redirect('/registro'); // Redirigir a la página principal si no es un usuario válido
+                return;
+            }
+    
+            res.render('denuncias', { role: userRole, listaDenuncias: listaDenuncias });
+    
         }
-
-        res.render('denuncias.ejs', { role: userRole, listaDenuncias: listaDenuncias });
-    } catch (err) {
-        console.error("Error al obtener las denuncias:", err);
-        res.status(500).send("Error al obtener las denuncias.");
-    }
-});
+);
 
 // Ruta POST para crear una denuncia
 app.post('/denuncias', uploadDen.array('imagenes_jean', 5), async (req, res) => {

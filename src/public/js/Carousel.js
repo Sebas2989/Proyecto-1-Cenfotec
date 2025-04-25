@@ -100,3 +100,14 @@ if (carousel) {
         event.preventDefault(); // Evita el desplazamiento vertical en pantallas táctiles
     });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const botonToggle = document.getElementById('toggleSolicitudes');
+    const contenedor = document.querySelector('.contenedorSolicitudes');
+    const adminTools = document.querySelector('.adminTools');
+
+    botonToggle.addEventListener('click', () => {
+        contenedor.classList.toggle('visible');
+        adminTools.classList.toggle('visible2');
+    });
+});

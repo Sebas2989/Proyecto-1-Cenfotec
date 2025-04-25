@@ -281,6 +281,54 @@
     padding-top: 18px;
     align-items: center;
 }
+
+.adminTools{
+    background-color: rgb(161, 161, 161);
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    z-index: 10;
+    top: 18%;
+    right: 0;
+    width: 340px;
+    height: 40px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    cursor: pointer;
+    transform: translateX(300px);
+    transition: .75s ease-in-out;
+}
+.adminTools.visible2{
+    transform: translateX(0px);
+    transition: .75s ease-in-out;
+}
+/* Contenedor de solicitudes oculto por defecto */
+.contenedorSolicitudes {
+    display: block;
+    position: fixed;
+    top: 25%;
+    right: 0px;
+    background-color: rgb(161, 161, 161);
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    border-bottom-left-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    z-index: 998;
+    transform: translateX(100%);
+    transition: .75s ease-in-out;
+}
+
+/* Clase para mostrar el contenedor */
+.contenedorSolicitudes.visible{
+    opacity: 1;
+    display: block;
+    transform: translateX(0%);
+    transition: .75s ease-in-out;
+}
+
 @media screen and (min-width: 320px) and (max-width: 494px){
 
 }

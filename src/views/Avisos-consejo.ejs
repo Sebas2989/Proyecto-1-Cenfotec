@@ -220,6 +220,52 @@
                 <% } %>
         </section>
     </div>
+    <% if (role === 'admin') { %>
+    <div class="adminTools">
+        <div class="icono" id="toggleSolicitudes">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+        </div>
+    </div>
+    <div class="contenedorSolicitudes">
+        <% if (role === 'admin') { %>
+            <h2>Solicitudes de Avisos</h2>
+            <% if (solicitudesAvisos.length > 0) { %>
+                <% solicitudesAvisos.forEach(solicitud => { %>
+                    <div class="solicitud">
+                        <h3><%= solicitud.avisosTitulo %></h3>
+                        <p><%= solicitud.avisosContenido %></p>
+                        <form method="POST" action="/aprobar/<%= solicitud._id %>">
+                            <button type="submit">Aprobar</button>
+                        </form>
+                        <form method="POST" action="/rechazar/<%= solicitud._id %>">
+                            <button type="submit">Rechazar</button>
+                        </form>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p>No hay solicitudes de avisos pendientes.</p>
+            <% } %>
+
+            <h2>Solicitudes de Noticias</h2>
+            <% if (solicitudesNoticias.length > 0) { %>
+                <% solicitudesNoticias.forEach(noticia => { %>
+                    <div class="solicitud">
+                        <h3><%= noticia.nombreNoticia %></h3>
+                        <p><%= noticia.contenidoNoticia %></p>
+                        <form method="POST" action="/aprobar-noticia/<%= noticia._id %>">
+                            <button type="submit">Aprobar</button>
+                        </form>
+                        <form method="POST" action="/rechazar-noticia/<%= noticia._id %>">
+                            <button type="submit">Rechazar</button>
+                        </form>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p>No hay solicitudes de noticias pendientes.</p>
+            <% } %>
+        <% } %>
+    <% } %>
+    </div>
     <footer>
         <div class="padreFooter" id="footer">
             <div class="hijosFooter1"><img src="/img/Logo_footer.png" alt="logo" srcset="" class="logoFooter"></div>

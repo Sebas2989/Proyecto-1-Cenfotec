@@ -10,7 +10,11 @@ const noticiasSchema = new mongoose.Schema({
     nombreNoticia: { type: String, required: true },
     fechaPublicacion: { type: String, required: true },
     contenidoNoticia: { type: String, required: true },
-    imagen: { type: String, required: false }
+    imagen: { type: String, required: false },
+    aprobado: {
+        type: Boolean,
+        default: false // Los avisos no están aprobados por defecto
+    }
 },{versionKey: false});
 
 //Creamos la coleccion 
