@@ -54,6 +54,10 @@ const storageDen = multer.diskStorage({
 
 const uploadDen = multer({ storage: storageDen});
 
+
+
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -216,7 +220,7 @@ app.post('/register', upload.single('imagen_moni'), async (req, res) => {
 
 //Modificar user
 
-app.post('/guardar-perfil', upload.single('imagen_nueva'), async (req, res) => {
+app.post('/guardar-perfil', uploadDen.single('imagen_nueva'), async (req, res) => {
     try {
         const { nombre, correo, telefono, direccion, distrito } = req.body;
         const idPerfil = req.session.userIdentificacion || null;  

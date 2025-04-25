@@ -128,7 +128,7 @@
             <% if (noticias && noticias.length > 0) { %>
                 <% noticias.forEach(noticia => { %>
                     <div class="noticia">
-                        <img class="imgNoticias" src="<%= noticia.imagen %>" alt="">
+                        <img class="imgNoticias" src="/img/<%= noticia.imagen %>" alt="">
                         <div class="noticia_info">
                             <h1><%= noticia.nombreNoticia %></h1>
                             <h2><%= noticia.fechaPublicacion %></h2>

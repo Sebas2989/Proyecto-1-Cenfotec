@@ -92,13 +92,12 @@ img {
 
 .imgNoticias{
 
-    width: 25%;
-    height: auto;
+    width: 20%;
+    height: 50%;
     max-width: 25%;
     border-radius: 25px;
     transition: 0.5s;
     cursor: pointer;
-    background-color: red
 }
 
 img:hover {
